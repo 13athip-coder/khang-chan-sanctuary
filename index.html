@@ -3,173 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ข้างชาน | Khang-Chan Digital Sanctuary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;500&display=swap" rel="stylesheet">
+    <title>ข้างชาน | The Sanctuary Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* === 1. งานดีไซน์ (Aesthetics) - Premium Minimalist Earth Tone === */
+        /* === โทนสีและพื้นหลังแสงแดดรำไร === */
         :root {
-            --primary-green: #556b2f; /* เขียวหม่นธรรมชาติ */
-            --bg-color: #fcf9f2;      /* ครีมอุ่นมาก */
-            --warm-beige: #e8dcc4;    /* เบจเข้ม */
-            --text-color: #3e3e3e;     /* เทาเข้ม นุ่มกว่าสีดำ */
-            --form-bg: #ffffff;
-            --duration: 0.8s;         /* ความนานของแอนิเมชัน */
+            --primary-green: #556b2f; 
+            --warm-beige: #e8dcc4;    
+            --text-color: #4a4a4a;     
+            --form-bg: rgba(255, 255, 255, 0.85); /* โปร่งแสงนิดๆ ให้เห็นพื้นหลัง */
         }
 
         body {
             font-family: 'Anuphan', sans-serif;
-            background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            scroll-behavior: smooth;
+            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอที่ไม่จำเป็น */
+            
+            /* อนิเมชันพื้นหลังเคลื่อนไหวเบาๆ เหมือนแสงแดด/ใบไม้ไหว */
+            background: linear-gradient(120deg, #fdfaf5, #f5ecd9, #eef2e6, #fdfaf5);
+            background-size: 300% 300%;
+            animation: gentleBreeze 15s ease infinite;
         }
 
-        .container {
+        @keyframes gentleBreeze {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* === ระบบ 3 ขั้นตอน (Step Transition) === */
+        .step-container {
             width: 85%;
-            max-width: 500px; /* บีบหน้าจอให้ดู Premium บนมือถือ */
-            padding: 40px 0;
-            opacity: 0; /* ซ่อนก่อนเพื่อทำ Animation */
-            animation: fadeInPage var(--duration) forwards ease-out;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            height: 60vh; /* ล็อกความสูงให้พอดีตอนเปลี่ยนหน้า */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Animation: เว็บค่อยๆ ปรากฏอย่างนุ่มนวล */
-        @keyframes fadeInPage {
-            to { opacity: 1; }
+        .step {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s ease, transform 1.2s ease; /* Fade นุ่มๆ */
+            transform: translateY(15px);
         }
 
-        /* โลโก้ (Placeholder) - เตรียมไว้ให้คุณใส่ไฟล์จริงภายหลัง */
+        .step.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* === ดีไซน์ส่วนประกอบ === */
         .logo {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 30px;
-            border: 2px dashed var(--warm-beige); /* วาดกรอบหลอกไว้ก่อน */
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px auto;
+            border: 1px solid var(--primary-green);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--warm-beige);
-            font-size: 12px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        h1 {
-            font-weight: 500;
             color: var(--primary-green);
-            font-size: 28px;
-            margin: 0 0 20px 0;
+            font-size: 12px;
+            background: rgba(255,255,255,0.5);
         }
 
-        /* --- 2. Greeting Section (พื้นที่แสดงข้อความสุ่ม) --- */
-        #greeting-text {
-            font-weight: 300;
-            line-height: 1.8;
-            font-size: 16px;
-            margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInUp var(--duration) calc(var(--duration) * 0.5) forwards ease-out;
+        h1, h2 { font-weight: 500; color: var(--primary-green); margin-bottom: 15px; }
+        h1 { font-size: 24px; }
+        h2 { font-size: 20px; line-height: 1.6; }
+        
+        p { font-weight: 300; line-height: 1.8; font-size: 16px; margin-bottom: 30px; }
+
+        .btn {
+            background-color: transparent;
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.4s ease;
+            font-family: inherit;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn:hover {
+            background-color: var(--primary-green);
+            color: white;
         }
 
-        /* --- 3. Anonymous Input (ฟอร์มระบายใจ) --- */
-        form {
+        /* ฟอร์มแบบสมุดบันทึก */
+        .notebook-form {
             background: var(--form-bg);
             padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.03); /* แสงเงาบางเบา */
-            margin-top: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
             text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 15px;
-            font-weight: 300;
-            color: var(--primary-green);
         }
 
         textarea {
             width: 100%;
-            height: 120px;
-            border: 1px solid #f1f1f1;
-            border-radius: 12px;
-            padding: 15px;
-            box-sizing: border-box;
+            height: 160px;
+            border: none;
+            background-color: transparent;
+            /* สร้างเส้นบรรทัดเหมือนสมุด */
+            background-image: repeating-linear-gradient(transparent, transparent 31px, var(--warm-beige) 31px, var(--warm-beige) 32px);
+            line-height: 32px;
+            padding: 5px 0;
             font-family: inherit;
+            font-size: 15px;
+            color: var(--text-color);
             resize: none;
-            margin-bottom: 20px;
             outline: none;
-            font-size: 14px;
-            transition: 0.3s;
+            margin-bottom: 20px;
         }
 
-        textarea:focus {
-            border-color: var(--warm-beige);
-            background-color: #fdfdfd;
-        }
-
-        button {
+        .btn-submit {
             background-color: var(--primary-green);
             color: white;
+            width: 100%;
             border: none;
-            padding: 12px 35px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
-            transition: 0.4s ease;
-            width: 100%; /* เต็มความกว้างบนมือถือ */
         }
+        .btn-submit:hover { opacity: 0.9; }
 
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 11px;
-            color: #b0b0b0;
-            font-weight: 300;
-        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo">
-            LOGO
+    <div class="step-container">
+        
+        <div id="step1" class="step active">
+            <div class="logo">LOGO</div>
+            <h1>ยินดีต้อนรับสู่ ข้างชาน</h1>
+            <p>พื้นที่ปลอดภัยนิรนามของคุณ</p>
+            <button class="btn" onclick="goToStep(2)">เข้าไปนั่งพักด้านใน</button>
         </div>
-        
-        <h1>ข้างชาน</h1>
-        
-        <p id="greeting-text">...ให้ ข้างชาน ได้ต้อนรับคุณสักครู่นะ...</p>
-        
-        <form name="whisper" method="POST" data-netlify="true">
-            <label>เมื่อใจพร้อมแล้ว... ทิ้งเรื่องหนักๆ ไว้ที่นี่ได้เลย (นิรนาม)</label>
-            <textarea name="message" placeholder="พิมพ์สิ่งที่อยากระบาย..." required></textarea>
-            <button type="submit">ส่งต่อความรู้สึกให้ ข้างชาน</button>
-        </form>
+
+        <div id="step2" class="step">
+            <h2 id="random-greeting">...กำลังเตรียมพื้นที่ให้คุณ...</h2>
+            <button class="btn" onclick="goToStep(3)">อยากเล่าเรื่องราวให้ฟัง</button>
+        </div>
+
+        <div id="step3" class="step">
+            <div class="notebook-form">
+                <p style="margin-bottom: 10px; font-size: 14px; color: var(--primary-green);">มีอะไรที่อยากบอกเราไหม... <br>เราสัญญาว่าจะตั้งใจฟัง</p>
+                <form id="khangchan-form" name="whisper" data-netlify="true">
+                    <input type="hidden" name="form-name" value="whisper" />
+                    <textarea name="message" placeholder="เขียนความรู้สึกของคุณตรงนี้..." required></textarea>
+                    <button type="submit" class="btn btn-submit">ฝากความรู้สึกไว้ที่นี่</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="step4" class="step">
+            <div class="logo" style="border-color: transparent; font-size: 30px;">🤍</div>
+            <h2 style="font-size: 18px;">เราได้รับความรู้สึกของคุณแล้วนะ...<br>ขอบคุณที่ไว้ใจเรา</h2>
+            <p style="font-size: 14px; margin-top: 20px;">ขอให้วันนี้เป็นวันที่ใจดีกับคุณนะ</p>
+        </div>
+
     </div>
 
-    <footer>© Khang-Chan Digital Sanctuary | พื้นที่ส่วนตัว 100%</footer>
-
     <script>
-        /* === 4. ระบบสุ่มข้อความ (Dynamic Greeting) === */
+        // --- คลังข้อความ 10 ประโยค ---
         const messages = [
             "วางความกังวลที่แบกมาตลอดทั้งวันไว้ที่ ข้างชาน แล้วปล่อยให้ใจได้พักผ่อนสักครู่นะ",
             "เรื่องไหนที่หนักเกินไป ทิ้งไว้ที่ ข้างชาน ก็ได้นะ เรายินดีรับฝากเรื่องราวเหล่านั้นไว้เอง",
@@ -183,15 +187,42 @@
             "ขอให้ความสงบที่ ข้างชาน โอบกอดคุณไว้ให้หายเหนื่อย และหลับฝันดีในคืนนี้นะ"
         ];
 
-        function showRandomMessage() {
-            const textElement = document.getElementById('greeting-text');
-            // เลือกข้อความแบบสุ่ม
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            textElement.innerText = messages[randomIndex];
+        // --- ฟังก์ชันเปลี่ยนหน้า (Fade Transition) ---
+        function goToStep(stepNumber) {
+            // ซ่อนทุกหน้า
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            
+            // ถ้ากำลังไปหน้า 2 ให้สุ่มข้อความใหม่
+            if (stepNumber === 2) {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                document.getElementById('random-greeting').innerText = messages[randomIndex];
+            }
+
+            // โชว์หน้าที่เลือก
+            document.getElementById('step' + stepNumber).classList.add('active');
         }
 
-        // รันฟังก์ชันเมื่อหน้าโหลดเสร็จ
-        window.onload = showRandomMessage;
+        // --- ระบบส่งฟอร์มไป Netlify แบบไม่เปลี่ยนหน้า (แก้ปัญหา 404) ---
+        const form = document.getElementById('khangchan-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // หยุดการเปลี่ยนหน้าไป 404
+
+            const formData = new FormData(form);
+            
+            // ส่งข้อมูลแบบเบื้องหลัง (AJAX)
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString(),
+            })
+            .then(() => {
+                // ถ้าส่งสำเร็จ ให้เปลี่ยนไปหน้าขั้นที่ 4 (Success Page)
+                goToStep(4);
+            })
+            .catch((error) => {
+                alert("เกิดข้อผิดพลาดในการส่งข้อมูล ลองใหม่อีกครั้งนะครับ");
+            });
+        });
     </script>
 
 </body>

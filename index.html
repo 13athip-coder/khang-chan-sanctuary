@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้างชาน | Khang-Chan Digital Sanctuary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* === 1. งานดีไซน์ (Aesthetics) - Premium Minimalist Earth Tone === */
+        :root {
+            --primary-green: #556b2f; /* เขียวหม่นธรรมชาติ */
+            --bg-color: #fcf9f2;      /* ครีมอุ่นมาก */
+            --warm-beige: #e8dcc4;    /* เบจเข้ม */
+            --text-color: #3e3e3e;     /* เทาเข้ม นุ่มกว่าสีดำ */
+            --form-bg: #ffffff;
+            --duration: 0.8s;         /* ความนานของแอนิเมชัน */
+        }
+
+        body {
+            font-family: 'Anuphan', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 500px; /* บีบหน้าจอให้ดู Premium บนมือถือ */
+            padding: 40px 0;
+            opacity: 0; /* ซ่อนก่อนเพื่อทำ Animation */
+            animation: fadeInPage var(--duration) forwards ease-out;
+        }
+
+        /* Animation: เว็บค่อยๆ ปรากฏอย่างนุ่มนวล */
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        /* โลโก้ (Placeholder) - เตรียมไว้ให้คุณใส่ไฟล์จริงภายหลัง */
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 30px;
+            border: 2px dashed var(--warm-beige); /* วาดกรอบหลอกไว้ก่อน */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--warm-beige);
+            font-size: 12px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-weight: 500;
+            color: var(--primary-green);
+            font-size: 28px;
+            margin: 0 0 20px 0;
+        }
+
+        /* --- 2. Greeting Section (พื้นที่แสดงข้อความสุ่ม) --- */
+        #greeting-text {
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp var(--duration) calc(var(--duration) * 0.5) forwards ease-out;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- 3. Anonymous Input (ฟอร์มระบายใจ) --- */
+        form {
+            background: var(--form-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.03); /* แสงเงาบางเบา */
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 300;
+            color: var(--primary-green);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            border: 1px solid #f1f1f1;
+            border-radius: 12px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: none;
+            margin-bottom: 20px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: var(--warm-beige);
+            background-color: #fdfdfd;
+        }
+
+        button {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.4s ease;
+            width: 100%; /* เต็มความกว้างบนมือถือ */
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 11px;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+            LOGO
+        </div>
+        
+        <h1>ข้างชาน</h1>
+        
+        <p id="greeting-text">...ให้ ข้างชาน ได้ต้อนรับคุณสักครู่นะ...</p>
+        
+        <form name="whisper" method="POST" data-netlify="true">
+            <label>เมื่อใจพร้อมแล้ว... ทิ้งเรื่องหนักๆ ไว้ที่นี่ได้เลย (นิรนาม)</label>
+            <textarea name="message" placeholder="พิมพ์สิ่งที่อยากระบาย..." required></textarea>
+            <button type="submit">ส่งต่อความรู้สึกให้ ข้างชาน</button>
+        </form>
+    </div>
+
+    <footer>© Khang-Chan Digital Sanctuary | พื้นที่ส่วนตัว 100%</footer>
+
+    <script>
+        /* === 4. ระบบสุ่มข้อความ (Dynamic Greeting) === */
+        const messages = [
+            "วางความกังวลที่แบกมาตลอดทั้งวันไว้ที่ ข้างชาน แล้วปล่อยให้ใจได้พักผ่อนสักครู่นะ",
+            "เรื่องไหนที่หนักเกินไป ทิ้งไว้ที่ ข้างชาน ก็ได้นะ เรายินดีรับฝากเรื่องราวเหล่านั้นไว้เอง",
+            "ลองหายใจเข้าลึกๆ แล้วค่อยๆ ปล่อยความเหนื่อยล้าให้จางหายไปที่ ข้างชาน แห่งนี้นะ",
+            "โลกข้างนอกอาจจะวุ่นวาย แต่ที่ ข้างชาน คุณไม่ต้องแบกอะไรไว้อีกแล้ว เป็นตัวเองได้เต็มที่เลย",
+            "มานั่งพักที่ ข้างชาน สักพักนะ ให้เรื่องราวที่รบกวนใจค่อยๆ ปลิวหายไปตามลม",
+            "ยินดีต้อนรับกลับบ้านนะ วันนี้เก่งมากแล้ว มานั่งพักใจที่ ข้างชาน ด้วยกันก่อนสิ",
+            "ไม่ว่าวันนี้จะเจออะไรมา อยากให้รู้ว่าที่ ข้างชาน แห่งนี้จะมีไออุ่นและความเข้าใจรอคุณเสมอ",
+            "ขอบคุณที่ผ่านวันนี้มาได้อย่างเข้มแข็งนะ มาเติมพลังใจที่ ข้างชาน ด้วยกันก่อนค่อยไปต่อนะ",
+            "อยากให้รู้ว่าพื้นที่เล็กๆ ที่ ข้างชาน มีคนตั้งใจรอฟังเรื่องราวของคุณอยู่ตรงนี้เสมอ",
+            "ขอให้ความสงบที่ ข้างชาน โอบกอดคุณไว้ให้หายเหนื่อย และหลับฝันดีในคืนนี้นะ"
+        ];
+
+        function showRandomMessage() {
+            const textElement = document.getElementById('greeting-text');
+            // เลือกข้อความแบบสุ่ม
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            textElement.innerText = messages[randomIndex];
+        }
+
+        // รันฟังก์ชันเมื่อหน้าโหลดเสร็จ
+        window.onload = showRandomMessage;
+    </script>
+
+</body>
+</html>

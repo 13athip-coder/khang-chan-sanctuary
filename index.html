@@ -6,14 +6,13 @@
     <title>ข้างชาน | พื้นที่ปลอดภัยนิรนาม</title>
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* === โทนสีหลัก (Earth Tone) === */
+        /* === โทนสีหลัก === */
         :root {
             --primary-green: #556b2f; 
             --text-main: #4a4a4a;
             --text-light: #7a7a7a;
             --bg-default: #fdfaf5;
             --note-lines: #e8dcc4;
-            /* สีอารมณ์จะถูกเปลี่ยนด้วย JavaScript */
             --bg-current: var(--bg-default); 
         }
 
@@ -22,14 +21,14 @@
             color: var(--text-main);
             margin: 0;
             background-color: var(--bg-current);
-            transition: background-color 1.5s ease; /* เฟดสีพื้นหลังนุ่มๆ */
+            transition: background-color 1.5s ease;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* ให้เนื้อหาเริ่มจากด้านบน */
+            align-items: flex-start;
         }
 
-        /* === ระบบจัดการหน้า (Step Container) === */
+        /* === โครงสร้างหน้า === */
         .app-container {
             width: 90%;
             max-width: 480px;
@@ -39,12 +38,12 @@
         }
 
         .step {
-            display: none; /* ซ่อนทุกหน้าไว้ก่อน */
+            display: none; 
             animation: fadeIn 1s ease forwards;
         }
 
         .step.active {
-            display: block; /* โชว์เฉพาะหน้าที่ active */
+            display: block; 
         }
 
         @keyframes fadeIn {
@@ -52,87 +51,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
-        /* === Typography === */
+        /* === ตัวอักษร === */
         h1 { font-size: 22px; font-weight: 500; color: var(--primary-green); margin-bottom: 10px; text-align: center; }
         p.subtitle { font-size: 15px; font-weight: 300; line-height: 1.6; text-align: center; margin-bottom: 30px; }
         
-        /* === UI: หน้า 1 (Entrance) === */
+        /* === ปุ่มและช่องกรอก === */
         .name-input-wrapper { text-align: center; margin-top: 20px; }
         .input-penname {
-            width: 80%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            background: rgba(255,255,255,0.7);
-            margin-bottom: 20px;
+            width: 80%; padding: 15px; border: 1px solid #ddd; border-radius: 8px;
+            font-family: inherit; font-size: 16px; text-align: center; outline: none;
+            background: rgba(255,255,255,0.7); margin-bottom: 20px;
         }
         .input-penname:focus { border-color: var(--primary-green); }
 
-        /* ปุ่มรสชาติอารมณ์ (List View) */
-        .emotion-list { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
-        .emotion-btn {
-            background: rgba(255,255,255,0.6);
-            border: 1px solid rgba(0,0,0,0.05);
-            padding: 18px 20px;
-            border-radius: 12px;
-            text-align: left;
-            font-family: inherit;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .emotion-btn:hover, .emotion-btn:active {
-            background: white;
-            transform: translateX(5px);
-            border-color: var(--primary-green);
-        }
-        .emo-title { font-weight: 500; color: var(--primary-green); width: 80px; }
-        .emo-desc { font-weight: 300; color: var(--text-light); font-size: 14px; }
-
-        /* === UI: หน้า 2 (Inner Porch) === */
-        .top-bar { display: flex; align-items: center; margin-bottom: 30px; }
-        .back-btn {
-            background: none; border: none; font-size: 20px; color: var(--text-main); cursor: pointer; padding: 0;
-        }
-        .prompt-text {
-            font-size: 18px; font-weight: 400; line-height: 1.6; margin-bottom: 30px; text-align: center;
-        }
-        
-        /* สมุดบันทึกมีเส้นจางๆ */
-        .notebook-wrapper {
-            background: rgba(255,255,255,0.85);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-        textarea {
-            width: 100%;
-            height: 220px;
-            border: none;
-            background-color: transparent;
-            background-image: repeating-linear-gradient(transparent, transparent 31px, var(--note-lines) 31px, var(--note-lines) 32px);
-            line-height: 32px;
-            padding: 5px 0;
-            font-family: inherit;
-            font-size: 16px;
-            color: var(--text-main);
-            resize: none;
-            outline: none;
-        }
-
-        /* ปุ่มกดทั่วไป */
         .btn-main {
             width: 100%; background-color: var(--primary-green); color: white;
             border: none; padding: 16px; border-radius: 30px;
@@ -140,31 +71,76 @@
         }
         .btn-main:hover { opacity: 0.9; }
 
-        /* === UI: หน้า Transition (ขอบคุณที่วางลง) === */
-        #step-transition {
-            text-align: center; margin-top: 40vh; transform: translateY(-50%);
+        .btn-outline {
+            width: 100%; background-color: transparent; color: var(--primary-green);
+            border: 1px solid var(--primary-green); padding: 16px; border-radius: 30px;
+            font-family: inherit; font-size: 16px; cursor: pointer; margin-top: 30px; transition: 0.3s;
         }
+        .btn-outline:hover { background-color: var(--primary-green); color: white; }
+
+        /* === หน้า 1: เลือกรสชาติ === */
+        .emotion-list { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+        .emotion-btn {
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.05);
+            padding: 18px 20px; border-radius: 12px; text-align: left;
+            font-family: inherit; font-size: 16px; cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .emotion-btn:hover { background: white; transform: translateX(5px); border-color: var(--primary-green); }
+        .emo-title { font-weight: 500; color: var(--primary-green); width: 80px; }
+        .emo-desc { font-weight: 300; color: var(--text-light); font-size: 14px; }
+
+        /* === หน้า 2: พื้นที่ระบาย === */
+        .top-bar { display: flex; align-items: center; margin-bottom: 30px; }
+        .back-btn { background: none; border: none; font-size: 20px; color: var(--text-main); cursor: pointer; padding: 0; }
+        .prompt-text { font-size: 18px; font-weight: 400; line-height: 1.6; margin-bottom: 30px; text-align: center; }
+        
+        .notebook-wrapper {
+            background: rgba(255,255,255,0.85); border-radius: 12px; padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        textarea {
+            width: 100%; height: 220px; border: none; background-color: transparent;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, var(--note-lines) 31px, var(--note-lines) 32px);
+            line-height: 32px; padding: 5px 0; font-family: inherit; font-size: 16px;
+            color: var(--text-main); resize: none; outline: none;
+        }
+
+        /* === หน้า Transition ระหว่างส่ง === */
+        #step-transition { text-align: center; margin-top: 40vh; transform: translateY(-50%); }
         .thank-you-text { font-size: 18px; font-weight: 300; color: var(--primary-green); }
 
-        /* === UI: หน้า 3 (Shared Porch) === */
+        /* === หน้า 3: กระดาษโน้ต === */
         .sticky-board { margin-top: 20px; }
         .sticky-note {
-            background: #fff;
-            padding: 20px;
-            border-radius: 4px 15px 15px 15px; /* มุมกระดาษพับนิดๆ */
-            box-shadow: 2px 4px 12px rgba(0,0,0,0.04);
-            margin-bottom: 15px;
-            position: relative;
-            border-left: 5px solid #ddd; /* สีจะเปลี่ยนตามรสชาติ */
+            background: #fff; padding: 25px 20px 15px 20px; border-radius: 4px 15px 15px 15px;
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.04); margin-bottom: 15px;
+            position: relative; border-left: 5px solid #ddd;
         }
-        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; }
         
-        /* แถบเครื่องมือใต้กระดาษโน้ต */
-        .note-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 10px; }
-        .hug-btn { background: none; border: none; font-size: 20px; cursor: pointer; opacity: 0.6; transition: 0.2s; }
-        .hug-btn:hover, .hug-btn.hugged { opacity: 1; transform: scale(1.1); }
-        .report-btn { background: none; border: none; font-size: 12px; color: #ccc; cursor: pointer; transition: 0.2s; }
+        /* ปุ่ม Report มุมขวาบน */
+        .report-btn { 
+            position: absolute; top: 12px; right: 12px;
+            background: none; border: none; font-size: 12px; color: #e0e0e0; 
+            cursor: pointer; transition: 0.2s; padding: 5px;
+        }
         .report-btn:hover { color: #ff6b6b; }
+
+        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; padding-right: 15px; }
+        
+        /* ปุ่มกอด มุมขวาล่าง */
+        .note-footer { 
+            display: flex; justify-content: space-between; align-items: flex-end; 
+            border-top: 1px solid rgba(0,0,0,0.03); padding-top: 10px; 
+        }
+        .hug-btn { 
+            background: none; border: none; font-size: 22px; cursor: pointer; 
+            opacity: 0.6; transition: 0.2s; padding: 0;
+        }
+        .hug-btn:hover, .hug-btn.hugged { opacity: 1; transform: scale(1.15); }
+
+        /* === หน้าจบ (Outro) === */
+        #step-outro { text-align: center; margin-top: 35vh; transform: translateY(-50%); }
 
     </style>
 </head>
@@ -176,7 +152,6 @@
             <img src="ข้างชาน (1).png" alt="โลโก้ข้างชาน" style="width: 80px; margin: 0 auto 20px auto; display: block; border-radius: 50%;">
             <h1>ยินดีต้อนรับสู่ 'ข้างชาน'</h1>
             <p class="subtitle">ถ้าคำตอบของคำถามเมื่อกี้คือ 'จำไม่ได้'...<br>ไม่เป็นไรนะ มาทิ้งตัวพักที่ข้างชานก่อน<br><br>เพื่อความสบายใจในพื้นที่นิรนามแห่งนี้...<br>อยากให้เราเรียกคุณว่าอะไร?</p>
-            
             <div class="name-input-wrapper">
                 <input type="text" id="penname-input" class="input-penname" placeholder="พิมพ์นามปากกาของคุณ..." autocomplete="off">
                 <button class="btn-main" onclick="saveNameAndGo()">เปิดประตูศาลา</button>
@@ -186,18 +161,14 @@
         <div id="step-1" class="step">
             <h1 id="greeting-text">ยินดีต้อนรับกลับบ้านนะคุณ...</h1>
             <p class="subtitle">กลับมานั่งพักที่ข้างชาน เพื่อเล่าเรื่องราวของคุณให้เราฟังอีกครั้งนะ...<br><br><strong style="color: var(--primary-green); font-size: 18px;">วันนี้... ใจของคุณรสชาติเป็นยังไง?</strong></p>
-
-            <div class="emotion-list">
-                </div>
+            <div class="emotion-list"></div>
         </div>
 
         <div id="step-2" class="step">
             <div class="top-bar">
                 <button class="back-btn" onclick="goBackToStep1()">❮ กลับ</button>
             </div>
-            
-            <div class="prompt-text" id="emotion-prompt">...คำถามจะขึ้นตรงนี้...</div>
-            
+            <div class="prompt-text" id="emotion-prompt"></div>
             <div class="notebook-wrapper">
                 <textarea id="user-message" placeholder="เขียนเรื่องราวของคุณลงไปได้เลย..."></textarea>
                 <button class="btn-main" onclick="submitMessage()">วางใจไว้ตรงนี้</button>
@@ -205,25 +176,27 @@
         </div>
 
         <div id="step-transition" class="step">
-            <p class="thank-you-text" id="fade-text">ขอบคุณที่วางมันลงนะ...</p>
+            <p class="thank-you-text">ขอบคุณที่วางมันลงนะ...</p>
         </div>
 
         <div id="step-3" class="step">
             <h1>ศาลาแบ่งปันพลังใจ</h1>
             <p class="subtitle">คุณไม่ได้แบกโลกไว้คนเดียวนะ...<br>ส่งอ้อมกอด 🫂 ให้เรื่องราวที่ต้องการกำลังใจกันเถอะ</p>
+            
+            <div class="sticky-board" id="mockup-board"></div>
 
-            <div class="sticky-board" id="mockup-board">
-                </div>
+            <button class="btn-outline" onclick="leaveSanctuary()">เดินออกจากศาลา</button>
+        </div>
 
-            <div style="text-align: center; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
-                <p style="font-size: 14px; color: var(--text-light);">หลับฝันดีนะคุณ <span id="final-penname"></span><br>แล้วแวะมาพักใจกับข้างชานใหม่นะ 🤍</p>
-            </div>
+        <div id="step-outro" class="step">
+            <div style="font-size: 40px; margin-bottom: 20px; color: var(--primary-green);">🤍</div>
+            <h1 style="font-size: 20px;">ข้างชานจะอยู่ตรงนี้เสมอ...</h1>
+            <p class="subtitle" style="margin-top: 15px;">ไว้วันไหนเหนื่อย<br>ก็แวะมาทิ้งตัวลงใหม่นะ</p>
         </div>
 
     </div>
 
     <script>
-        // 1. ฐานข้อมูลอารมณ์ (สี และ คำถาม)
         const emotionData = {
             'bitter': { label: 'รสขม', desc: 'เหนื่อยล้า', color: '#e6dfd5', border: '#8b7355', prompt: 'อะไรคือก้อนหินที่หนักที่สุดที่คุณแบกไว้...<br>และอยากวางลงที่นี่?' },
             'astringent': { label: 'รสฝาด', desc: 'เบื่อหน่าย', color: '#f0ece1', border: '#a9a9a9', prompt: 'ในวันที่จืดชืด...<br>มีสิ่งเล็กๆ อย่างเดียวไหมที่ทำให้คุณยังยิ้มได้?' },
@@ -233,36 +206,27 @@
             'sweet': { label: 'รสหวาน', desc: 'สุข / ภูมิใจ', color: '#fdf3f4', border: '#fadadd', prompt: 'ขอบคุณที่แวะมาแบ่งปันแสงสว่าง...<br>วันนี้มีเรื่องดีๆ อะไรเกิดขึ้นกับคุณบ้าง?' }
         };
 
-        // 2. ระบบเริ่มต้น (เช็กคนเก่า/คนใหม่)
         let userName = localStorage.getItem('khangchan_penname');
         
         window.onload = () => {
             renderEmotionButtons();
             if(userName) {
-                // คนเก่า ข้ามไปหน้าเลือกรสชาติเลย
                 document.getElementById('greeting-text').innerHTML = `ยินดีต้อนรับกลับบ้านนะคุณ <span style="color: var(--primary-green);">${userName}</span>...`;
-                document.getElementById('final-penname').innerText = userName;
                 showStep('step-1');
             } else {
-                // คนใหม่ ให้ตั้งชื่อก่อน
                 showStep('step-name');
             }
         };
 
-        // 3. ฟังก์ชันบันทึกชื่อ
         function saveNameAndGo() {
             const input = document.getElementById('penname-input').value.trim();
             if(!input) { alert("ตั้งนามปากกาสักนิดนะ 🤍"); return; }
-            
             userName = input;
             localStorage.setItem('khangchan_penname', userName);
-            
             document.getElementById('greeting-text').innerHTML = `ยินดีที่ได้รู้จักนะคุณ <span style="color: var(--primary-green);">${userName}</span>...`;
-            document.getElementById('final-penname').innerText = userName;
             showStep('step-1');
         }
 
-        // 4. สร้างปุ่มรสชาติอารมณ์
         function renderEmotionButtons() {
             const list = document.querySelector('.emotion-list');
             for (const [key, data] of Object.entries(emotionData)) {
@@ -274,83 +238,69 @@
             }
         }
 
-        // 5. เมื่อกดเลือกรสชาติ
         let currentEmotionKey = '';
         function selectEmotion(key) {
             currentEmotionKey = key;
             const data = emotionData[key];
-            
-            // เปลี่ยนสีพื้นหลัง
             document.documentElement.style.setProperty('--bg-current', data.color);
-            
-            // เปลี่ยนคำถาม
             document.getElementById('emotion-prompt').innerHTML = data.prompt;
-            
-            // ล้างช่องข้อความ
             document.getElementById('user-message').value = '';
-            
             showStep('step-2');
         }
 
-        // 6. ปุ่มถอยหลัง
         function goBackToStep1() {
             document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)');
             showStep('step-1');
         }
 
-        // 7. เมื่อกดส่งข้อความ (Fade Out & Transition)
         function submitMessage() {
             const msg = document.getElementById('user-message').value.trim();
-            if(!msg) return; // ถ้าไม่พิมพ์อะไรเลย ไม่ให้ไปต่อ
-
-            // พาไปหน้าขอบคุณ
+            if(!msg) return; 
             showStep('step-transition');
-            document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); // คืนสีเดิม
-
-            // หน่วงเวลา 3 วินาที แล้วค่อยพาไปหน้า 3 (บอร์ด)
+            document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); 
             setTimeout(() => {
-                renderMockupBoard(); // วาดกระดาษโน้ตจำลอง
+                renderMockupBoard(); 
                 showStep('step-3');
             }, 3000);
         }
 
-        // 8. สร้างกระดาษโน้ตจำลอง (Mockup สำหรับเทสหน้าตา)
         function renderMockupBoard() {
             const board = document.getElementById('mockup-board');
-            board.innerHTML = ''; // ล้างของเก่า
+            board.innerHTML = ''; 
             
-            // ตัวอย่างข้อความ 3 อัน
             const mockData = [
                 { text: "วันนี้เหนื่อยจัง ร้องไห้บนรถไฟฟ้าด้วย แต่ไม่อยากให้ที่บ้านรู้", emotion: 'salty' },
                 { text: "รู้สึกตัวเองไม่เก่งเลยเมื่อเทียบกับเพื่อนรุ่นเดียวกัน ก้อนหินก้อนนี้หนักมาก", emotion: 'bitter' },
-                { text: "หัวหน้าชมว่าพรีเซนต์งานดีมาก! ดีใจจนอยากเลี้ยงขนมตัวเอง", emotion: 'sweet' }
+                { text: "ความเงียบในห้องมันทำให้ฟุ้งซ่านจัง อยากมีใครสักคนนั่งอยู่ด้วย", emotion: 'bland' },
+                { text: "วันนี้โดนลูกค้าเหวี่ยงใส่ ทั้งๆ ที่เราไม่ได้ทำผิดเลย หงุดหงิดมาก!", emotion: 'sour' }
             ];
 
             mockData.forEach(item => {
                 const emoInfo = emotionData[item.emotion];
                 const note = document.createElement('div');
                 note.className = 'sticky-note';
-                note.style.borderLeftColor = emoInfo.border; // สีแถบซ้ายตามอารมณ์
+                note.style.borderLeftColor = emoInfo.border; 
 
                 note.innerHTML = `
+                    <button class="report-btn" title="รายงานข้อความนี้">🚩</button>
                     <div class="note-text">"${item.text}"</div>
                     <div class="note-footer">
-                        <span style="font-size: 12px; color: ${emoInfo.border};">${emoInfo.label}</span>
-                        <div>
-                            <button class="report-btn" title="รายงานข้อความนี้">🚩</button>
-                            <button class="hug-btn" onclick="this.classList.add('hugged'); this.innerText='🫂🤍';">🫂</button>
-                        </div>
+                        <span style="font-size: 13px; color: ${emoInfo.border};">${emoInfo.label}</span>
+                        <button class="hug-btn" onclick="this.classList.add('hugged'); this.innerText='🫂🤍';">🫂</button>
                     </div>
                 `;
                 board.appendChild(note);
             });
         }
 
-        // ฟังก์ชันสลับหน้า (Utility)
+        function leaveSanctuary() {
+            showStep('step-outro');
+        }
+
         function showStep(stepId) {
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
             document.getElementById(stepId).classList.add('active');
-            window.scrollTo(0, 0); // เลื่อนกลับไปบนสุดเสมอ
+            window.scrollTo(0, 0); 
         }
     </script>
 </body>

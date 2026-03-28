@@ -236,19 +236,30 @@
             showStep('step-1');
         };
 
-        window.submitMessage = async () => {
-            const msg = document.getElementById('user-message').value.trim();
+       window.submitMessage = async () => {
+            let msg = document.getElementById('user-message').value.trim();
             if(!msg) return; 
+
+            // --- 🛑 เริ่มระบบเซนเซอร์คำหยาบ ---
+            const badWords = ['คำหยาบ1', 'คำหยาบ2', 'อีสัตว์', 'ปัญญาอ่อน', 'ตายซะ']; 
+            
+            // วนลูปหาคำหยาบ แล้วเปลี่ยนเป็น ***
+            badWords.forEach(word => {
+                // ใช้ RegExp เพื่อหาคำนั้นทั้งหมดในประโยค
+                const regex = new RegExp(word, 'g'); 
+                msg = msg.replace(regex, '***');
+            });
+            // --- 🛑 จบระบบเซนเซอร์คำหยาบ ---
 
             showStep('step-transition');
             document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); 
 
-            // ส่งข้อมูลขึ้น Firebase
+            // สังเกตว่าตัวแปร text จะส่งค่า msg ที่ถูกเซนเซอร์แล้วขึ้นไปแทน
             try {
                 await addDoc(collection(db, "messages"), {
                     penname: userName,
                     emotion: currentEmotionKey,
-                    text: msg,
+                    text: msg, // <--- ส่งข้อความที่คลีนแล้วขึ้นไป
                     hugs: 0,
                     reports: 0,
                     createdAt: serverTimestamp()
@@ -257,7 +268,6 @@
                 console.error("Error adding document: ", e);
             }
 
-            // หน่วงเวลาให้รู้สึกอิน 3 วินาที แล้วไปหน้า 3
             setTimeout(() => {
                 fetchAndRenderBoard(); 
                 showStep('step-3');

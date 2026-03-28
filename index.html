@@ -17,39 +17,16 @@
         }
 
         body {
-            font-family: 'Anuphan', sans-serif;
-            color: var(--text-main);
-            margin: 0;
-            background-color: var(--bg-current);
-            transition: background-color 1.5s ease;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            font-family: 'Anuphan', sans-serif; color: var(--text-main); margin: 0;
+            background-color: var(--bg-current); transition: background-color 1.5s ease;
+            min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
         }
 
         /* === โครงสร้างหน้า === */
-        .app-container {
-            width: 90%;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 40px 0;
-            position: relative;
-        }
-
-        .step {
-            display: none; 
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .step.active {
-            display: block; 
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .app-container { width: 90%; max-width: 480px; margin: 0 auto; padding: 40px 0; position: relative; }
+        .step { display: none; animation: fadeIn 1s ease forwards; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* === ตัวอักษร === */
         h1 { font-size: 22px; font-weight: 500; color: var(--primary-green); margin-bottom: 10px; text-align: center; }
@@ -95,10 +72,7 @@
         .back-btn { background: none; border: none; font-size: 20px; color: var(--text-main); cursor: pointer; padding: 0; }
         .prompt-text { font-size: 18px; font-weight: 400; line-height: 1.6; margin-bottom: 30px; text-align: center; }
         
-        .notebook-wrapper {
-            background: rgba(255,255,255,0.85); border-radius: 12px; padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
+        .notebook-wrapper { background: rgba(255,255,255,0.85); border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         textarea {
             width: 100%; height: 220px; border: none; background-color: transparent;
             background-image: repeating-linear-gradient(transparent, transparent 31px, var(--note-lines) 31px, var(--note-lines) 32px);
@@ -106,7 +80,7 @@
             color: var(--text-main); resize: none; outline: none;
         }
 
-        /* === หน้า Transition ระหว่างส่ง === */
+        /* === หน้า Transition === */
         #step-transition { text-align: center; margin-top: 40vh; transform: translateY(-50%); }
         .thank-you-text { font-size: 18px; font-weight: 300; color: var(--primary-green); }
 
@@ -118,28 +92,18 @@
             position: relative; border-left: 5px solid #ddd;
         }
         
-        /* ปุ่ม Report มุมขวาบน */
         .report-btn { 
-            position: absolute; top: 12px; right: 12px;
-            background: none; border: none; font-size: 12px; color: #e0e0e0; 
+            position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 12px; color: #e0e0e0; 
             cursor: pointer; transition: 0.2s; padding: 5px;
         }
         .report-btn:hover { color: #ff6b6b; }
-
-        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; padding-right: 15px; }
+        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; padding-right: 15px; white-space: pre-wrap; word-break: break-word; }
         
-        /* ปุ่มกอด มุมขวาล่าง */
-        .note-footer { 
-            display: flex; justify-content: space-between; align-items: flex-end; 
-            border-top: 1px solid rgba(0,0,0,0.03); padding-top: 10px; 
-        }
-        .hug-btn { 
-            background: none; border: none; font-size: 22px; cursor: pointer; 
-            opacity: 0.6; transition: 0.2s; padding: 0;
-        }
+        .note-footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(0,0,0,0.03); padding-top: 10px; }
+        .hug-btn { background: none; border: none; font-size: 22px; cursor: pointer; opacity: 0.6; transition: 0.2s; padding: 0; }
         .hug-btn:hover, .hug-btn.hugged { opacity: 1; transform: scale(1.15); }
 
-        /* === หน้าจบ (Outro) === */
+        /* === หน้าจบ === */
         #step-outro { text-align: center; margin-top: 35vh; transform: translateY(-50%); }
 
     </style>
@@ -154,7 +118,7 @@
             <p class="subtitle">ถ้าคำตอบของคำถามเมื่อกี้คือ 'จำไม่ได้'...<br>ไม่เป็นไรนะ มาทิ้งตัวพักที่ข้างชานก่อน<br><br>เพื่อความสบายใจในพื้นที่นิรนามแห่งนี้...<br>อยากให้เราเรียกคุณว่าอะไร?</p>
             <div class="name-input-wrapper">
                 <input type="text" id="penname-input" class="input-penname" placeholder="พิมพ์นามปากกาของคุณ..." autocomplete="off">
-                <button class="btn-main" onclick="saveNameAndGo()">เปิดประตูศาลา</button>
+                <button class="btn-main" onclick="window.saveNameAndGo()">เปิดประตูศาลา</button>
             </div>
         </div>
 
@@ -166,12 +130,12 @@
 
         <div id="step-2" class="step">
             <div class="top-bar">
-                <button class="back-btn" onclick="goBackToStep1()">❮ กลับ</button>
+                <button class="back-btn" onclick="window.goBackToStep1()">❮ กลับ</button>
             </div>
             <div class="prompt-text" id="emotion-prompt"></div>
             <div class="notebook-wrapper">
                 <textarea id="user-message" placeholder="เขียนเรื่องราวของคุณลงไปได้เลย..."></textarea>
-                <button class="btn-main" onclick="submitMessage()">วางใจไว้ตรงนี้</button>
+                <button class="btn-main" onclick="window.submitMessage()">วางใจไว้ตรงนี้</button>
             </div>
         </div>
 
@@ -183,9 +147,11 @@
             <h1>ศาลาแบ่งปันพลังใจ</h1>
             <p class="subtitle">คุณไม่ได้แบกโลกไว้คนเดียวนะ...<br>ส่งอ้อมกอด 🫂 ให้เรื่องราวที่ต้องการกำลังใจกันเถอะ</p>
             
-            <div class="sticky-board" id="mockup-board"></div>
+            <div class="sticky-board" id="shared-board">
+                <p style="text-align:center; color: var(--text-light); font-weight: 300;">กำลังจัดเตรียมกระดาษโน้ต...</p>
+            </div>
 
-            <button class="btn-outline" onclick="leaveSanctuary()">เดินออกจากศาลา</button>
+            <button class="btn-outline" onclick="window.leaveSanctuary()">เดินออกจากศาลา</button>
         </div>
 
         <div id="step-outro" class="step">
@@ -196,7 +162,24 @@
 
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, doc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        // กุญแจ Firebase ของคุณ
+        const firebaseConfig = {
+            apiKey: "AIzaSyDeg7GkXgwHDRSh-rdFFZdyNfG5IHcGZIY",
+            authDomain: "khangchan-36952.firebaseapp.com",
+            projectId: "khangchan-36952",
+            storageBucket: "khangchan-36952.firebasestorage.app",
+            messagingSenderId: "774680486656",
+            appId: "1:774680486656:web:f33ffc2389bcb17bf609e5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ฐานข้อมูลอารมณ์
         const emotionData = {
             'bitter': { label: 'รสขม', desc: 'เหนื่อยล้า', color: '#e6dfd5', border: '#8b7355', prompt: 'อะไรคือก้อนหินที่หนักที่สุดที่คุณแบกไว้...<br>และอยากวางลงที่นี่?' },
             'astringent': { label: 'รสฝาด', desc: 'เบื่อหน่าย', color: '#f0ece1', border: '#a9a9a9', prompt: 'ในวันที่จืดชืด...<br>มีสิ่งเล็กๆ อย่างเดียวไหมที่ทำให้คุณยังยิ้มได้?' },
@@ -207,7 +190,8 @@
         };
 
         let userName = localStorage.getItem('khangchan_penname');
-        
+        let currentEmotionKey = '';
+
         window.onload = () => {
             renderEmotionButtons();
             if(userName) {
@@ -218,14 +202,14 @@
             }
         };
 
-        function saveNameAndGo() {
+        window.saveNameAndGo = () => {
             const input = document.getElementById('penname-input').value.trim();
             if(!input) { alert("ตั้งนามปากกาสักนิดนะ 🤍"); return; }
             userName = input;
             localStorage.setItem('khangchan_penname', userName);
             document.getElementById('greeting-text').innerHTML = `ยินดีที่ได้รู้จักนะคุณ <span style="color: var(--primary-green);">${userName}</span>...`;
             showStep('step-1');
-        }
+        };
 
         function renderEmotionButtons() {
             const list = document.querySelector('.emotion-list');
@@ -233,69 +217,143 @@
                 const btn = document.createElement('button');
                 btn.className = 'emotion-btn';
                 btn.innerHTML = `<span class="emo-title">${data.label}</span> <span class="emo-desc">. . . ${data.desc}</span>`;
-                btn.onclick = () => selectEmotion(key);
+                btn.onclick = () => window.selectEmotion(key);
                 list.appendChild(btn);
             }
         }
 
-        let currentEmotionKey = '';
-        function selectEmotion(key) {
+        window.selectEmotion = (key) => {
             currentEmotionKey = key;
             const data = emotionData[key];
             document.documentElement.style.setProperty('--bg-current', data.color);
             document.getElementById('emotion-prompt').innerHTML = data.prompt;
             document.getElementById('user-message').value = '';
             showStep('step-2');
-        }
+        };
 
-        function goBackToStep1() {
+        window.goBackToStep1 = () => {
             document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)');
             showStep('step-1');
-        }
+        };
 
-        function submitMessage() {
+        window.submitMessage = async () => {
             const msg = document.getElementById('user-message').value.trim();
             if(!msg) return; 
+
             showStep('step-transition');
             document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); 
+
+            // ส่งข้อมูลขึ้น Firebase
+            try {
+                await addDoc(collection(db, "messages"), {
+                    penname: userName,
+                    emotion: currentEmotionKey,
+                    text: msg,
+                    hugs: 0,
+                    reports: 0,
+                    createdAt: serverTimestamp()
+                });
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+
+            // หน่วงเวลาให้รู้สึกอิน 3 วินาที แล้วไปหน้า 3
             setTimeout(() => {
-                renderMockupBoard(); 
+                fetchAndRenderBoard(); 
                 showStep('step-3');
             }, 3000);
-        }
+        };
 
-        function renderMockupBoard() {
-            const board = document.getElementById('mockup-board');
-            board.innerHTML = ''; 
+        async function fetchAndRenderBoard() {
+            const board = document.getElementById('shared-board');
+            board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300;">กำลังจัดเตรียมกระดาษโน้ต...</p>'; 
             
-            const mockData = [
-                { text: "วันนี้เหนื่อยจัง ร้องไห้บนรถไฟฟ้าด้วย แต่ไม่อยากให้ที่บ้านรู้", emotion: 'salty' },
-                { text: "รู้สึกตัวเองไม่เก่งเลยเมื่อเทียบกับเพื่อนรุ่นเดียวกัน ก้อนหินก้อนนี้หนักมาก", emotion: 'bitter' },
-                { text: "ความเงียบในห้องมันทำให้ฟุ้งซ่านจัง อยากมีใครสักคนนั่งอยู่ด้วย", emotion: 'bland' },
-                { text: "วันนี้โดนลูกค้าเหวี่ยงใส่ ทั้งๆ ที่เราไม่ได้ทำผิดเลย หงุดหงิดมาก!", emotion: 'sour' }
-            ];
+            try {
+                // ดึงข้อความที่ยอดกอดน้อยที่สุด 15 อันดับแรกมา
+                const q = query(collection(db, "messages"), orderBy("hugs", "asc"), limit(15));
+                const querySnapshot = await getDocs(q);
+                
+                let messagesList = [];
+                querySnapshot.forEach((docSnap) => {
+                    let data = docSnap.data();
+                    // กรองเอาเฉพาะข้อความที่โดนรีพอร์ตน้อยกว่า 3 ครั้ง และข้อความต้องไม่ว่าง
+                    if(data.reports < 3 && data.text) { 
+                        messagesList.push({ id: docSnap.id, ...data });
+                    }
+                });
 
-            mockData.forEach(item => {
-                const emoInfo = emotionData[item.emotion];
-                const note = document.createElement('div');
-                note.className = 'sticky-note';
-                note.style.borderLeftColor = emoInfo.border; 
+                // สุ่มหยิบมา 5 อัน เพื่อไม่ให้คนเห็นข้อความซ้ำเดิมตลอด
+                messagesList.sort(() => 0.5 - Math.random());
+                let selectedMessages = messagesList.slice(0, 5);
 
-                note.innerHTML = `
-                    <button class="report-btn" title="รายงานข้อความนี้">🚩</button>
-                    <div class="note-text">"${item.text}"</div>
-                    <div class="note-footer">
-                        <span style="font-size: 13px; color: ${emoInfo.border};">${emoInfo.label}</span>
-                        <button class="hug-btn" onclick="this.classList.add('hugged'); this.innerText='🫂🤍';">🫂</button>
-                    </div>
-                `;
-                board.appendChild(note);
-            });
+                board.innerHTML = ''; // ล้างหน้าจอรอวาด
+
+                if(selectedMessages.length === 0) {
+                    board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300; padding: 20px;">ตอนนี้ศาลายังว่างเปล่า...<br>ข้อความของคุณคือแสงสว่างแรกของที่นี่นะ 🤍</p>';
+                    return;
+                }
+
+                // วาดกระดาษโน้ตแต่ละแผ่น
+                selectedMessages.forEach(item => {
+                    const emoInfo = emotionData[item.emotion] || emotionData['bland'];
+                    
+                    const noteDiv = document.createElement('div');
+                    noteDiv.className = 'sticky-note';
+                    noteDiv.style.borderLeftColor = emoInfo.border; 
+
+                    // ปุ่มรีพอร์ต
+                    const reportBtn = document.createElement('button');
+                    reportBtn.className = 'report-btn';
+                    reportBtn.title = 'รายงานข้อความนี้';
+                    reportBtn.innerText = '🚩';
+                    reportBtn.onclick = async () => {
+                        noteDiv.style.display = 'none'; // ซ่อนทันที
+                        await updateDoc(doc(db, "messages", item.id), { reports: increment(1) });
+                    };
+
+                    const textDiv = document.createElement('div');
+                    textDiv.className = 'note-text';
+                    textDiv.innerText = `"${item.text}"`; // ใช้ innerText เพื่อความปลอดภัยจาก HTML Injection
+
+                    const footerDiv = document.createElement('div');
+                    footerDiv.className = 'note-footer';
+
+                    const labelSpan = document.createElement('span');
+                    labelSpan.style.fontSize = '13px';
+                    labelSpan.style.color = emoInfo.border;
+                    labelSpan.innerText = emoInfo.label;
+
+                    // ปุ่มกอด
+                    const hugBtn = document.createElement('button');
+                    hugBtn.className = 'hug-btn';
+                    hugBtn.innerText = '🫂';
+                    hugBtn.onclick = async () => {
+                        if (!hugBtn.classList.contains('hugged')) {
+                            hugBtn.classList.add('hugged');
+                            hugBtn.innerText = '🫂🤍';
+                            await updateDoc(doc(db, "messages", item.id), { hugs: increment(1) });
+                        }
+                    };
+
+                    // ประกอบร่าง
+                    noteDiv.appendChild(reportBtn);
+                    noteDiv.appendChild(textDiv);
+                    footerDiv.appendChild(labelSpan);
+                    footerDiv.appendChild(hugBtn);
+                    noteDiv.appendChild(footerDiv);
+
+                    board.appendChild(noteDiv);
+                });
+
+            } catch (error) {
+                console.error("Error getting messages:", error);
+                board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300;">ไม่สามารถเชื่อมต่อศาลาได้ในขณะนี้...</p>';
+            }
         }
 
-        function leaveSanctuary() {
+        window.leaveSanctuary = () => {
             showStep('step-outro');
-        }
+        };
 
         function showStep(stepId) {
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));

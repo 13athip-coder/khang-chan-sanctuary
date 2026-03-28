@@ -23,11 +23,11 @@
             overflow-x: hidden;
         }
 
-        /* === โครงสร้างหน้า (Mobile-First) === */
+        /* === โครงสร้างหน้า === */
         .app-container { width: 90%; max-width: 480px; margin: 0 auto; padding: 40px 0; position: relative; }
         
-        /* === The Emotional Pacing (1.5s Fade) === */
-        .step { display: none; opacity: 0; transition: opacity 1.5s ease, transform 1.5s ease; transform: translateY(10px); }
+        /* === The Emotional Pacing (เฟดเปลี่ยนหน้า) === */
+        .step { display: none; opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease; transform: translateY(10px); }
         .step.active { display: block; opacity: 1; transform: translateY(0); }
 
         /* === Visual Progress (ศาลาตามเลเวล) === */
@@ -40,7 +40,6 @@
         /* === ตัวอักษร === */
         h1 { font-size: 22px; font-weight: 500; color: var(--primary-green); margin-bottom: 10px; text-align: center; }
         p.subtitle { font-size: 15px; font-weight: 300; line-height: 1.6; text-align: center; margin-bottom: 30px; }
-        .typewriter-text { min-height: 48px; } /* ป้องกันหน้ากระตุกตอนพิมพ์ */
 
         /* === ปุ่มและช่องกรอก === */
         .input-box {
@@ -102,7 +101,7 @@
             position: relative; border-left: 5px solid #ddd;
         }
         .report-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 12px; color: #e0e0e0; cursor: pointer; }
-        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; }
+        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; white-space: pre-wrap; word-break: break-word; }
         .note-footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(0,0,0,0.03); padding-top: 10px; }
         .hug-btn { background: none; border: none; font-size: 22px; cursor: pointer; opacity: 0.6; }
         .hug-btn.hugged { opacity: 1; transform: scale(1.15); }
@@ -117,10 +116,10 @@
 
         <div id="step-entrance" class="step active">
             <img src="ข้างชาน (1).png" alt="ศาลาข้างชาน" id="pavilion-img" class="pavilion-img level-1">
-            <h1 id="tw-welcome" class="typewriter-text"></h1>
-            <p class="subtitle" id="tw-intro" class="typewriter-text"></p>
+            <h1 id="welcome-text">ยินดีต้อนรับสู่ 'ข้างชาน'</h1>
+            <p class="subtitle" id="intro-text">ที่ข้างชานแห่งนี้... คุณอยากให้เราเรียกเจ้าของหัวใจดวงนี้ว่าอะไรดี?</p>
             
-            <div id="name-input-area" style="opacity: 0; transition: opacity 1.5s;">
+            <div id="name-input-area">
                 <input type="text" id="penname-input" class="input-box" placeholder="นามปากกาของคุณ..." autocomplete="off">
                 <button class="btn-main" onclick="saveName()">เปิดประตูศาลา</button>
             </div>
@@ -128,7 +127,7 @@
 
         <div id="step-choice" class="step">
             <h1>ทางแยกของใจ</h1>
-            <p class="subtitle" id="tw-choice-desc"></p>
+            <p class="subtitle" id="choice-desc"></p>
             
             <button class="btn-choice" onclick="selectMode('quick')">
                 <h3 style="color: #4a90e2;">วางใจไว้ที่ศาลา...แล้วลุยต่อ</h3>
@@ -145,7 +144,7 @@
             <h1>กุญแจเข้าศาลา</h1>
             <p class="subtitle">รหัสจากกล่องคุกกี้ที่พาคุณกลับมาที่นี่...</p>
             <input type="text" id="order-code-input" class="input-box" placeholder="เช่น KC-AX-0123" style="text-transform: uppercase;">
-            <div id="auth-error" class="error-msg typewriter-text"></div>
+            <div id="auth-error" class="error-msg"></div>
             <button class="btn-main" onclick="verifyOrderCode()">ไขกุญแจ</button>
             <button class="btn-outline" onclick="changeStep('step-choice')" style="border: none; margin-top: 5px;">❮ กลับไปทางแยก</button>
         </div>
@@ -158,9 +157,9 @@
 
         <div id="step-write" class="step">
             <div id="deep-questions-area" style="display:none; margin-bottom: 20px;">
-                <p id="q1" class="subtitle" style="color: var(--primary-green); font-weight: 500;"></p>
-                <p id="q2" class="subtitle" style="color: var(--primary-green); font-weight: 500;"></p>
-                <p id="q3" class="subtitle" style="color: var(--primary-green); font-weight: 500;"></p>
+                <p id="q1" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
+                <p id="q2" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
+                <p id="q3" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
             </div>
             
             <div id="quick-prompt-area" style="display:none;">
@@ -180,7 +179,7 @@
         </div>
 
         <div id="step-transition" class="step" style="text-align: center; margin-top: 30vh;">
-            <p id="tw-transition" class="subtitle" style="font-size: 18px; color: var(--primary-green);"></p>
+            <p id="tw-transition" class="subtitle" style="font-size: 18px; color: var(--primary-green);">กำลังวางเรื่องราวของคุณลงอย่างทะนุถนอม...</p>
         </div>
 
         <div id="step-board" class="step">
@@ -204,7 +203,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, increment, query, orderBy, limit, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-        // 🔑 ใส่กุญแจ Firebase ของคุณตรงนี้
+        // 🔑 อย่าลืมเช็กกุญแจให้ตรงกับของคุณนะ
         const firebaseConfig = {
             apiKey: "AIzaSyDeg7GkXgwHDRSh-rdFFZdyNfG5IHcGZIY",
             authDomain: "khangchan-36952.firebaseapp.com",
@@ -216,7 +215,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- ข้อมูล 7 รสชาติ และ 21 คำถาม Deep Exploration ---
+        // --- ข้อมูล 7 รสชาติ และ 21 คำถาม ---
         const emotionData = {
             'bitter': { label: 'รสขม', desc: 'ผิดหวัง / เหนื่อยล้า', color: '#e6dfd5', border: '#8b7355', quickPrompt: 'อะไรคือก้อนหินที่หนักที่สุดที่คุณแบกไว้... และอยากวางลงที่นี่?' },
             'salty': { label: 'รสเค็ม', desc: 'เหนื่อย / เหงา', color: '#eef2f5', border: '#5f718a', quickPrompt: 'ในพื้นที่ที่ไม่มีใครตัดสิน... เรื่องไหนที่คุณอยากกระซิบให้เราฟัง?' },
@@ -265,14 +264,13 @@
             ]
         };
 
-        // --- ตัวแปรระบบ ---
         let currentName = localStorage.getItem('kc_penname');
-        let currentMode = ''; // 'quick' or 'deep'
+        let currentMode = ''; 
         let currentEmotion = '';
         let validOrderCode = '';
         let lifetimeVisits = parseInt(localStorage.getItem('kc_lifetime_visits') || '0');
 
-        // --- 1. The Emotional Pacing (Typewriter) ---
+        // ฟังก์ชันพิมพ์ดีด (ใช้เฉพาะตอนลึกซึ้ง)
         async function typeWriter(elementId, text, speed = 50) {
             const el = document.getElementById(elementId);
             el.innerText = '';
@@ -282,24 +280,31 @@
             }
         }
 
-        function changeStep(stepId) {
-            document.querySelectorAll('.step').forEach(el => {
-                el.classList.remove('active');
-                setTimeout(() => el.style.display = 'none', 1500); 
-            });
-            setTimeout(() => {
+        // ฟังก์ชันเปลี่ยนหน้า (แก้บั๊กจอดำแล้ว 100%)
+        window.changeStep = (stepId) => {
+            const currentActive = document.querySelector('.step.active');
+            if (currentActive) {
+                currentActive.classList.remove('active'); // สั่งให้เริ่มเฟดออก
+                setTimeout(() => {
+                    currentActive.style.display = 'none'; // ซ่อนหน้าเก่า
+                    
+                    // เปิดหน้าใหม่
+                    const target = document.getElementById(stepId);
+                    target.style.display = 'block';
+                    setTimeout(() => target.classList.add('active'), 50); // สั่งเฟดอิน
+                    window.scrollTo(0, 0);
+                }, 800); // หน่วงเวลาให้เฟดออกเสร็จก่อน
+            } else {
                 const target = document.getElementById(stepId);
                 target.style.display = 'block';
                 setTimeout(() => target.classList.add('active'), 50);
-                window.scrollTo(0, 0);
-            }, 500); // รอให้ Fade out เสร็จก่อนค่อย Fade in
-        }
+            }
+        };
 
-        // --- 2. Visual Progress Update ---
         function updatePavilionVisual() {
             const img = document.getElementById('pavilion-img');
             const body = document.getElementById('main-body');
-            img.className = 'pavilion-img'; // reset
+            img.className = 'pavilion-img'; 
             if (lifetimeVisits <= 2) {
                 img.classList.add('level-1');
             } else if (lifetimeVisits <= 5) {
@@ -311,7 +316,6 @@
             }
         }
 
-        // --- 3. ระบบกรองคำหยาบ (Dual-Logic) ---
         function maskBadWords(text) {
             const badWords = ['ควย','เย็ด','หี','แตด','เงี่ยน','อึ๊บ','ปั่มปั๊ม','ดอกทอง','กะหรี่','ส้นตีน','หน้าหี','อีดอก','อีเวร','ไอระยำ','ชาติชั่ว','ถ่อย','เหี้ย','สัส','สัตว์','แม่ง','ฉิบหาย','ชิบหาย','ห่า','เวรเอ๊ย','เฮงซวย','ประสาทแดก','ตอแหล','กู','มึง','กรู','เมิง'];
             let masked = text;
@@ -322,19 +326,19 @@
             return masked;
         }
 
-        // --- เริ่มต้นการทำงาน (Window Onload) ---
-        window.onload = async () => {
+        // โหลดหน้าแรก
+        window.onload = () => {
             updatePavilionVisual();
             renderEmotions();
 
             if(currentName) {
-                await typeWriter('tw-welcome', `ยินดีต้อนรับกลับสู่นะคุณ ${currentName}...`);
-                await typeWriter('tw-intro', "ที่ข้างชานแห่งนี้ ยังคงสงบและรอฟังเรื่องราวของคุณเสมอ...");
+                document.getElementById('welcome-text').innerHTML = `ยินดีต้อนรับกลับมานะคุณ <span style="color: var(--primary-green);">${currentName}</span>...`;
+                document.getElementById('intro-text').innerText = "ที่ข้างชานแห่งนี้ ยังคงสงบและรอฟังเรื่องราวของคุณเสมอ...";
+                document.getElementById('penname-input').value = currentName;
             } else {
-                await typeWriter('tw-welcome', "ยินดีต้อนรับสู่ 'ข้างชาน'");
-                await typeWriter('tw-intro', "ที่ข้างชานแห่งนี้... คุณอยากให้เราเรียกเจ้าของหัวใจดวงนี้ว่าอะไรดี?");
+                document.getElementById('welcome-text').innerText = "ยินดีต้อนรับสู่ 'ข้างชาน'";
+                document.getElementById('intro-text').innerText = "ที่ข้างชานแห่งนี้... คุณอยากให้เราเรียกเจ้าของหัวใจดวงนี้ว่าอะไรดี?";
             }
-            document.getElementById('name-input-area').style.opacity = 1;
         };
 
         window.saveName = () => {
@@ -344,7 +348,7 @@
                 currentName = input;
                 localStorage.setItem('kc_penname', currentName);
             }
-            document.getElementById('tw-choice-desc').innerText = `คุณ ${currentName} อยากใช้เวลาที่ศาลาแห่งนี้แบบไหนดี?`;
+            document.getElementById('choice-desc').innerText = `คุณ ${currentName} อยากใช้เวลาที่ศาลาแห่งนี้แบบไหนดี?`;
             changeStep('step-choice');
         };
 
@@ -358,14 +362,13 @@
             }
         };
 
-        // --- ระบบเช็ครหัส Order Code ---
+        // ระบบเช็ครหัส Order Code
         window.verifyOrderCode = async () => {
             const codeInput = document.getElementById('order-code-input').value.trim().toUpperCase();
             const errorDiv = document.getElementById('auth-error');
             
-            // 1. เช็ก Pattern: KC-อักษร2ตัว-เลข4ตัว
             if(!/^KC-[A-Z]{2}-\d{4}$/.test(codeInput)) {
-                await typeWriter('auth-error', "รหัสจะขึ้นต้นด้วย KC- ตามด้วยอักษร 2 ตัว และเลข 4 หลัก (เช่น KC-AX-0123) ลองดูที่การ์ดอีกทีน้า", 30);
+                errorDiv.innerText = "รหัสจะขึ้นต้นด้วย KC- ตามด้วยอักษร 2 ตัว และเลข 4 หลัก (เช่น KC-AX-0123) ลองตรวจทานดูอีกครั้งนะ";
                 return;
             }
 
@@ -376,15 +379,15 @@
                 const codeSnap = await getDoc(codeRef);
 
                 if (codeSnap.exists() && codeSnap.data().count >= 2) {
-                    await typeWriter('auth-error', "ร่มเงาของรหัสนี้ถูกใช้ครบ 2 ครั้งแล้วน้า... ไว้เจอกันใหม่ในกล่องถัดไปนะ 🤍", 40);
+                    errorDiv.innerText = "ร่มเงาของรหัสนี้ถูกใช้ครบ 2 ครั้งแล้วน้า... ไว้เจอกันใหม่ในกล่องถัดไปนะ 🤍";
                 } else {
-                    validOrderCode = codeInput; // รหัสผ่าน!
+                    validOrderCode = codeInput; 
+                    errorDiv.innerText = "";
                     document.getElementById('emo-greeting').innerText = "พร้อมเดินทางกลับบ้านในใจกันนะ...";
                     changeStep('step-emotion');
                 }
             } catch (e) {
                 errorDiv.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อ...";
-                console.error(e);
             }
         };
 
@@ -410,33 +413,36 @@
             if (currentMode === 'quick') {
                 document.getElementById('deep-questions-area').style.display = 'none';
                 document.getElementById('quick-prompt-area').style.display = 'block';
-                await typeWriter('quick-prompt', data.quickPrompt, 40);
+                document.getElementById('quick-prompt').innerText = data.quickPrompt;
             } else {
-                // Deep Mode
                 document.getElementById('quick-prompt-area').style.display = 'none';
                 document.getElementById('deep-questions-area').style.display = 'block';
                 const qs = deepQuestions[key];
                 
-                // ค่อยๆ โชว์ทีละคำถาม เพื่อให้เขามีเวลาหายใจและคิดตาม
-                await typeWriter('q1', qs[0], 50);
-                await new Promise(r => setTimeout(r, 1500)); // พักหายใจ 1.5 วิ
-                await typeWriter('q2', qs[1], 50);
-                await new Promise(r => setTimeout(r, 1500));
-                await typeWriter('q3', qs[2], 50);
+                // ค่อยๆ พิมพ์คำถาม 3 ข้อทีละบรรทัด
+                document.getElementById('q1').innerText = '';
+                document.getElementById('q2').innerText = '';
+                document.getElementById('q3').innerText = '';
+                
+                // รอหน้าเฟดเข้ามาให้เสร็จก่อน ค่อยเริ่มพิมพ์ (800ms)
+                setTimeout(async () => {
+                    await typeWriter('q1', qs[0], 40);
+                    await new Promise(r => setTimeout(r, 1000));
+                    await typeWriter('q2', qs[1], 40);
+                    await new Promise(r => setTimeout(r, 1000));
+                    await typeWriter('q3', qs[2], 40);
+                }, 800);
             }
         };
 
-        // --- ระบบบันทึกข้อความและอัปเดตสิทธิ์ ---
         window.submitMessage = async (isPublicConsent) => {
             const msg = document.getElementById('user-message').value.trim();
             if(!msg) return; 
 
             changeStep('step-transition');
             document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); 
-            typeWriter('tw-transition', "กำลังวางเรื่องราวของคุณลงอย่างทะนุถนอม...", 60);
 
             try {
-                // 1. บันทึกข้อความลง Messages (ดิบ 100%)
                 await addDoc(collection(db, "messages"), {
                     penname: currentName,
                     emotion: currentEmotion,
@@ -444,12 +450,11 @@
                     text: msg,
                     hugs: 0,
                     reports: 0,
-                    isPublic: isPublicConsent, // ถ้ากดเก็บส่วนตัว จะเป็น false
+                    isPublic: isPublicConsent,
                     orderCode: validOrderCode || 'None',
                     createdAt: serverTimestamp()
                 });
 
-                // 2. ถ้าเป็น Deep Mode ให้อัปเดตโควต้ารหัส
                 if (currentMode === 'deep' && validOrderCode) {
                     const codeRef = doc(db, "used_codes", validOrderCode);
                     const codeSnap = await getDoc(codeRef);
@@ -460,7 +465,6 @@
                     }
                 }
 
-                // 3. เพิ่ม Lifetime Visits ในเครื่องลูกค้า (เพื่ออัปเกรดศาลา)
                 lifetimeVisits += 1;
                 localStorage.setItem('kc_lifetime_visits', lifetimeVisits);
 
@@ -469,16 +473,14 @@
             setTimeout(() => {
                 fetchAndRenderBoard(); 
                 changeStep('step-board');
-            }, 3500);
+            }, 3000);
         };
 
-        // --- ดึงกระดาน 5 อันดับ (เฉพาะที่อนุญาต isPublic == true) ---
         async function fetchAndRenderBoard() {
             const board = document.getElementById('shared-board');
             board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300;">กำลังจัดเตรียมร่มเงา...</p>'; 
             
             try {
-                // คิวรีเอาเฉพาะคนที่กดยินดีแบ่งปัน เรียงตามกอดน้อยสุด เอามา 5 อัน
                 const q = query(collection(db, "messages"), where("isPublic", "==", true), orderBy("hugs", "asc"), limit(5));
                 const querySnapshot = await getDocs(q);
                 
@@ -511,7 +513,6 @@
 
                     const textDiv = document.createElement('div');
                     textDiv.className = 'note-text';
-                    // กรองคำหยาบก่อนโชว์สาธารณะ
                     textDiv.innerText = `"${maskBadWords(item.text)}"`; 
 
                     const footerDiv = document.createElement('div');
@@ -542,7 +543,6 @@
 
             } catch (error) {
                 console.error("Error:", error);
-                // Firebase Error: ต้องไปสร้าง Index ก่อน เพราะใช้ where คู่กับ orderBy (เดี๋ยวผมแนะนำวิธีแก้ถ้าติด Error ครับ)
             }
         }
     </script>

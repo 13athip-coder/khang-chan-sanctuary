@@ -2,548 +2,400 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ข้างชาน | พื้นที่ปลอดภัยนิรนาม</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้างชาน | Khang-Chan</title>
     <style>
-        /* === โทนสีหลัก === */
+        /* =========================================================
+           1. CORE STYLES (สีสันและอารมณ์ของแบรนด์)
+           ========================================================= */
         :root {
-            --primary-green: #556b2f; 
-            --text-main: #4a4a4a;
-            --text-light: #7a7a7a;
-            --bg-default: #fdfaf5;
-            --note-lines: #e8dcc4;
-            --bg-current: var(--bg-default); 
+            --bg-cream: #FDFBF7;
+            --text-espresso: #3b2f2f;
+            --accent-sage: #9cb3a0;
+            --border-color: #d1cbc1;
+            --transition-speed: 1.5s;
         }
 
         body {
-            font-family: 'Anuphan', sans-serif; color: var(--text-main); margin: 0;
-            background-color: var(--bg-current); transition: background-color 1.5s ease;
-            min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+            background-color: var(--bg-cream);
+            color: var(--text-espresso);
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
             overflow-x: hidden;
         }
 
-        /* === โครงสร้างหน้า === */
-        .app-container { width: 90%; max-width: 480px; margin: 0 auto; padding: 40px 0; position: relative; }
+        .page-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .page-section.active {
+            opacity: 1;
+            visibility: visible;
+            position: relative; 
+        }
+
+        .logo { max-width: 100px; margin-bottom: 30px; opacity: 0; animation: fadeIn 2s forwards 0.5s; }
+
+        h1, h2 { font-weight: 300; line-height: 1.6; margin-bottom: 15px; }
+        p { line-height: 1.6; }
+        .subtitle { color: var(--accent-sage); font-size: 0.95rem; margin-bottom: 30px; }
         
-        /* === The Emotional Pacing (เฟดเปลี่ยนหน้า) === */
-        .step { display: none; opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease; transform: translateY(10px); }
-        .step.active { display: block; opacity: 1; transform: translateY(0); }
-
-        /* === Visual Progress (ศาลาตามเลเวล) === */
-        .pavilion-img { width: 100px; height: 100px; margin: 0 auto 20px auto; display: block; border-radius: 50%; object-fit: cover; transition: all 2s ease; }
-        .level-1 { filter: grayscale(50%); }
-        .level-2 { filter: grayscale(0%); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .level-3 { filter: grayscale(0%); box-shadow: 0 0 25px rgba(255, 178, 102, 0.6); }
-        .bg-sunset { background: linear-gradient(to bottom, #fdfaf5, #fff0e0) !important; }
-
-        /* === ตัวอักษร === */
-        h1 { font-size: 22px; font-weight: 500; color: var(--primary-green); margin-bottom: 10px; text-align: center; }
-        p.subtitle { font-size: 15px; font-weight: 300; line-height: 1.6; text-align: center; margin-bottom: 30px; }
-
-        /* === ปุ่มและช่องกรอก === */
-        .input-box {
-            width: 80%; padding: 15px; border: 1px solid #ddd; border-radius: 8px;
-            font-family: inherit; font-size: 16px; text-align: center; outline: none;
-            background: rgba(255,255,255,0.7); margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;
+        .input-text { 
+            width: 90%; max-width: 300px; padding: 12px; background: transparent; 
+            border: none; border-bottom: 1px solid var(--text-espresso); 
+            color: var(--text-espresso); font-size: 1.1rem; text-align: center; 
+            outline: none; transition: border-color 0.3s; margin-bottom: 20px;
         }
-        .input-box:focus { border-color: var(--primary-green); }
-
-        .btn-main {
-            width: 100%; background-color: var(--primary-green); color: white;
-            border: none; padding: 16px; border-radius: 30px;
-            font-family: inherit; font-size: 16px; cursor: pointer; margin-top: 10px; transition: 0.3s;
+        .input-text:focus { border-bottom: 2px solid var(--accent-sage); }
+        
+        .btn { 
+            background-color: transparent; color: var(--text-espresso); 
+            border: 1px solid var(--text-espresso); padding: 12px 30px; 
+            border-radius: 50px; font-size: 1rem; cursor: pointer; 
+            transition: all 0.4s ease; margin: 10px; min-width: 200px;
         }
-        .btn-main:hover { opacity: 0.9; }
+        .btn:hover { background-color: var(--text-espresso); color: var(--bg-cream); }
 
-        .btn-outline {
-            width: 100%; background-color: transparent; color: var(--primary-green);
-            border: 1px solid var(--primary-green); padding: 16px; border-radius: 30px;
-            font-family: inherit; font-size: 16px; cursor: pointer; margin-top: 15px; transition: 0.3s;
-        }
-        .btn-outline:hover { background-color: var(--primary-green); color: white; }
-
-        .btn-choice {
-            background: white; border: 1px solid var(--primary-green); padding: 20px;
-            border-radius: 15px; text-align: center; cursor: pointer; margin-bottom: 15px;
-            transition: all 0.3s ease; display: block; width: 100%; box-sizing: border-box; font-family: inherit;
-        }
-        .btn-choice:hover { background: var(--primary-green); color: white; transform: translateY(-3px); }
-        .btn-choice h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: 500; }
-        .btn-choice p { margin: 0; font-size: 13px; font-weight: 300; opacity: 0.8; }
-
-        /* === List อารมณ์ === */
-        .emotion-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
         .emotion-btn {
-            background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.05);
-            padding: 16px 20px; border-radius: 12px; text-align: left;
-            font-family: inherit; font-size: 16px; cursor: pointer; transition: all 0.3s ease;
-            display: flex; align-items: center;
+            background: transparent; border: 1px solid var(--border-color);
+            padding: 15px; margin: 8px; border-radius: 10px;
+            width: 100%; max-width: 320px; text-align: left;
+            cursor: pointer; transition: all 0.3s ease; color: var(--text-espresso);
         }
-        .emotion-btn:hover { background: white; border-color: var(--primary-green); }
-        .emo-title { font-weight: 500; color: var(--primary-green); width: 85px; }
-        .emo-desc { font-weight: 300; color: var(--text-light); font-size: 14px; }
+        .emotion-btn:hover { border-color: var(--accent-sage); background: rgba(156, 179, 160, 0.1); }
+        .emotion-btn b { display: block; font-size: 1.1rem; margin-bottom: 5px; }
+        .emotion-btn small { color: #666; font-size: 0.85rem; }
 
-        /* === พื้นที่ระบาย === */
-        .notebook-wrapper { background: rgba(255,255,255,0.85); border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-top: 20px; }
         textarea {
-            width: 100%; height: 180px; border: none; background-color: transparent;
-            background-image: repeating-linear-gradient(transparent, transparent 31px, var(--note-lines) 31px, var(--note-lines) 32px);
-            line-height: 32px; padding: 5px 0; font-family: inherit; font-size: 16px;
-            color: var(--text-main); resize: none; outline: none;
+            width: 100%; max-width: 350px; height: 150px;
+            background: transparent; border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 15px; color: var(--text-espresso);
+            font-family: inherit; font-size: 1rem; resize: none; outline: none;
+            transition: opacity 1.5s ease-in-out, border-color 0.3s;
         }
+        textarea:focus { border-color: var(--accent-sage); }
+        .fade-out-text { opacity: 0 !important; }
 
-        /* === กระดาน 5 ข้อความ === */
-        .sticky-board { margin-top: 20px; }
-        .sticky-note {
-            background: #fff; padding: 25px 20px 15px 20px; border-radius: 4px 15px 15px 15px;
-            box-shadow: 2px 4px 12px rgba(0,0,0,0.04); margin-bottom: 15px;
-            position: relative; border-left: 5px solid #ddd;
-        }
-        .report-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 12px; color: #e0e0e0; cursor: pointer; }
-        .note-text { font-size: 15px; line-height: 1.6; font-weight: 300; margin-bottom: 15px; white-space: pre-wrap; word-break: break-word; }
-        .note-footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(0,0,0,0.03); padding-top: 10px; }
-        .hug-btn { background: none; border: none; font-size: 22px; cursor: pointer; opacity: 0.6; }
-        .hug-btn.hugged { opacity: 1; transform: scale(1.15); }
-        
-        .error-msg { color: #d9534f; font-size: 13px; text-align: center; margin-top: 10px; min-height: 20px; font-weight: 300; }
-        .consent-box { background: rgba(255,255,255,0.5); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; font-size: 14px; line-height: 1.5; border: 1px dashed var(--primary-green);}
+        .shared-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; max-width: 600px; }
+        .note-card { background: #fff; padding: 20px; border-radius: 5px; width: 250px; box-shadow: 2px 4px 10px rgba(0,0,0,0.05); text-align: left; border-top: 3px solid var(--accent-sage); }
+        .note-card:nth-child(even) { transform: rotate(2deg); }
+        .note-card:nth-child(odd) { transform: rotate(-2deg); }
+        .hug-btn { background: transparent; border: 1px solid var(--accent-sage); color: var(--accent-sage); border-radius: 20px; padding: 5px 15px; font-size: 0.8rem; cursor: pointer; margin-top: 15px; }
+        .hug-btn:hover { background: var(--accent-sage); color: #fff; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .delay-1 { animation: fadeIn 2s forwards 1s; opacity: 0; }
+        .delay-2 { animation: fadeIn 2s forwards 2s; opacity: 0; }
+        .delay-3 { animation: fadeIn 2s forwards 3s; opacity: 0; }
     </style>
 </head>
-<body id="main-body">
+<body>
 
-    <div class="app-container">
-
-        <div id="step-entrance" class="step active">
-            <img src="ข้างชาน (1).png" alt="ศาลาข้างชาน" id="pavilion-img" class="pavilion-img level-1">
-            <h1 id="welcome-text">ยินดีต้อนรับสู่ 'ข้างชาน'</h1>
-            <p class="subtitle" id="intro-text">ที่ข้างชานแห่งนี้... คุณอยากให้เราเรียกเจ้าของหัวใจดวงนี้ว่าอะไรดี?</p>
-            
-            <div id="name-input-area">
-                <input type="text" id="penname-input" class="input-box" placeholder="นามปากกาของคุณ..." autocomplete="off">
-                <button class="btn-main" onclick="saveName()">เปิดประตูศาลา</button>
+    <section id="page-1" class="page-section active">
+        <img src="ข้างชาน (1).png" alt="ข้างชาน โลโก้" class="logo" onerror="this.style.display='none'">
+        <div id="newUserSection" style="display: none;">
+            <h1 id="typewriterNew" style="min-height: 60px;"></h1>
+            <p class="subtitle delay-1">ไม่ต้องรีบร้อน... ลองวางความเหนื่อยล้าไว้ข้างนอกศาลา<br>แล้วเข้ามานั่งพักด้วยกันก่อนนะครับ</p>
+            <div class="delay-2">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">ที่ศาลาข้างชานคุณอยากใช้ชื่อนามปากกาว่าอะไรดีครับ</p>
+                <input type="text" id="newPennameInput" class="input-text" placeholder="พิมพ์นามปากกาของคุณ...">
+                <br><button class="btn" onclick="enterSanctuary('new')">เดินขึ้น ศาลาข้างชาน</button>
             </div>
         </div>
 
-        <div id="step-choice" class="step">
-            <h1>ทางแยกของใจ</h1>
-            <p class="subtitle" id="choice-desc"></p>
-            
-            <button class="btn-choice" onclick="selectMode('quick')">
-                <h3 style="color: #4a90e2;">วางใจไว้ที่ศาลา...แล้วลุยต่อ</h3>
-                <p>ระบายสั้นๆ เพื่อปล่อยวางความหนักอึ้ง</p>
-            </button>
-            
-            <button class="btn-choice" onclick="selectMode('deep')">
-                <h3 style="color: var(--primary-green);">นั่งคุยกับตัวเอง...เพื่อกลับบ้าน</h3>
-                <p>ใช้รหัสเพื่อตอบ 3 คำถามสำรวจใจ (Deep Exploration)</p>
-            </button>
-        </div>
-
-        <div id="step-auth" class="step">
-            <h1>กุญแจเข้าศาลา</h1>
-            <p class="subtitle">รหัสจากกล่องคุกกี้ที่พาคุณกลับมาที่นี่...</p>
-            <input type="text" id="order-code-input" class="input-box" placeholder="เช่น KC-AX-0123" style="text-transform: uppercase;">
-            <div id="auth-error" class="error-msg"></div>
-            <button class="btn-main" onclick="verifyOrderCode()">ไขกุญแจ</button>
-            <button class="btn-outline" onclick="changeStep('step-choice')" style="border: none; margin-top: 5px;">❮ กลับไปทางแยก</button>
-        </div>
-
-        <div id="step-emotion" class="step">
-            <h1 id="emo-greeting"></h1>
-            <p class="subtitle">วันนี้... ใจของคุณรสชาติเป็นยังไง?</p>
-            <div class="emotion-list" id="emotion-list-container"></div>
-        </div>
-
-        <div id="step-write" class="step">
-            <div id="deep-questions-area" style="display:none; margin-bottom: 20px;">
-                <p id="q1" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
-                <p id="q2" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
-                <p id="q3" class="subtitle" style="color: var(--primary-green); font-weight: 500; min-height: 24px;"></p>
+        <div id="oldUserSection" style="display: none;">
+            <h1 id="typewriterOld" style="min-height: 60px;"></h1>
+            <p class="subtitle delay-1" id="oldSubtitle"></p>
+            <div id="oldUserGreeting">
+                <p class="subtitle delay-2" style="color: var(--text-espresso);">รู้ไหม... รสชาติของใจที่คุณทิ้งไว้ครั้งที่แล้ว<br>มีเพื่อนร่วมทางส่งกอดให้ <strong style="color: var(--accent-sage);" id="hugCountDisplay">5</strong> ครั้งเลยนะ</p>
+                <div class="delay-3">
+                    <button class="btn" onclick="enterSanctuary('old')">เดินขึ้น ศาลาข้างชาน</button>
+                    <p style="font-size: 0.8rem; color: var(--accent-sage); text-decoration: underline; cursor: pointer; margin-top: 20px;" onclick="showChangeNameUI()">อยากเปลี่ยนนามปากกา</p>
+                </div>
             </div>
-            
-            <div id="quick-prompt-area" style="display:none;">
-                <p id="quick-prompt" class="subtitle" style="color: var(--primary-green); font-weight: 500;"></p>
-            </div>
-
-            <div class="notebook-wrapper">
-                <textarea id="user-message" placeholder="ค่อยๆ เขียนเรื่องราวของคุณลงไปได้เลย..."></textarea>
-            </div>
-
-            <div class="consent-box">
-                <span style="font-size: 18px;">🌱</span><br>
-                เรื่องราวของคุณอาจเป็นร่มเงาให้ใครบางคน...<br>อนุญาตให้เรานำข้อความนิรนามนี้ไปวางที่ 'ระเบียงศาลา' เพื่อส่งต่อกำลังใจให้กันไหม?
-                <button class="btn-main" onclick="submitMessage(true)">ยินดีแบ่งปันร่มเงา</button>
-                <button class="btn-outline" onclick="submitMessage(false)">ขอเก็บไว้ที่ข้างชานส่วนตัว</button>
+            <div id="changeNameSection" style="display: none; margin-top: 20px;">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">วันนี้อยากให้ศาลาข้างชานเรียกคุณว่าอะไรดีครับ?</p>
+                <input type="text" id="changePennameInput" class="input-text" placeholder="นามปากกาใหม่...">
+                <br><button class="btn" onclick="saveNewName()">ยืนยัน และเดินขึ้นศาลา</button>
             </div>
         </div>
+    </section>
 
-        <div id="step-transition" class="step" style="text-align: center; margin-top: 30vh;">
-            <p id="tw-transition" class="subtitle" style="font-size: 18px; color: var(--primary-green);">กำลังวางเรื่องราวของคุณลงอย่างทะนุถนอม...</p>
+    <section id="page-2" class="page-section">
+        <h2 style="margin-bottom: 5px;">รสชาติใจ @ ศาลาข้างชาน</h2>
+        <p class="subtitle" style="margin-bottom: 20px;">วันนี้หัวใจของคุณมีรสชาติแบบไหนครับ...</p>
+        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <button class="emotion-btn" onclick="selectEmotion('ขม')"><b>รสขม</b><small>วันที่เหนื่อยล้า... แบกความรับผิดชอบจนล้าไปหมด</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('เค็ม')"><b>รสเค็ม</b><small>วันที่หน่วงๆ... มีเรื่องให้เสียใจ หรืออยากร้องไห้</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('เผ็ด')"><b>รสเผ็ด</b><small>วันที่วุ่นวาย... กังวลจนหยุดคิดไม่ได้</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('เปรี้ยว')"><b>รสเปรี้ยว</b><small>วันที่หงุดหงิด... มีเรื่องกวนใจ หรือน้อยใจเล็กๆ</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('ฝาด')"><b>รสฝาด</b><small>วันที่อึดอัด... มีเรื่องค้างคาที่พูดออกมาไม่ได้</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('หวาน')"><b>รสหวาน</b><small>วันที่ใจฟู... ภูมิใจในตัวเอง หรือเจอเรื่องดีๆ</small></button>
+            <button class="emotion-btn" onclick="selectEmotion('กลมกล่อม')"><b>รสกลมกล่อม</b><small>วันที่สงบ... สบายใจ พึงพอใจกับสิ่งที่เป็นอยู่</small></button>
         </div>
+    </section>
 
-        <div id="step-board" class="step">
-            <h1>ระเบียงศาลา</h1>
-            <p class="subtitle">คุณไม่ได้แบกโลกไว้คนเดียวนะ...<br>ส่งอ้อมกอด 🫂 ให้เรื่องราวที่ต้องการกำลังใจกันเถอะ</p>
-            
-            <div class="sticky-board" id="shared-board"></div>
+    <section id="page-3" class="page-section">
+        <p id="promptText" style="max-width: 400px; line-height: 1.8; margin-bottom: 30px; font-size: 1.05rem;"></p>
+        <textarea id="userMessage" placeholder="เขียนระบายความรู้สึกของคุณที่นี่..."></textarea>
+        <br>
+        <button class="btn" onclick="submitMessage()">ฝากเรื่องราวไว้ที่ข้างชาน</button>
+    </section>
 
-            <button class="btn-outline" onclick="changeStep('step-outro')">เดินออกจากศาลา</button>
+    <section id="page-4" class="page-section">
+        <div style="max-width: 450px;">
+            <p id="comfortText" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 50px;"></p>
+            <div class="delay-2">
+                <p>พกไออุ่นจากศาลาติดตัวไปนะ...</p>
+                <p style="color: var(--accent-sage); font-weight: bold; border-bottom: 1px solid var(--accent-sage); display: inline-block; padding-bottom: 5px; margin-bottom: 30px;">
+                    แล้ววันไหนที่ใจเริ่มล้า กลับมาเจอกันที่ศาลาข้างชานอีกครั้งนะ
+                </p>
+                <br>
+                <button class="btn" onclick="changePage('page-4', 'page-5')">ก้าวต่อไป</button>
+            </div>
         </div>
+    </section>
 
-        <div id="step-outro" class="step" style="text-align: center; margin-top: 30vh;">
-            <div style="font-size: 40px; margin-bottom: 20px; color: var(--primary-green);">🤍</div>
-            <h1 style="font-size: 20px;">ข้างชานจะอยู่ตรงนี้เสมอ...</h1>
-            <p class="subtitle" style="margin-top: 15px;">ไว้วันไหนเหนื่อย<br>ก็แวะมาทิ้งตัวลงใหม่นะ</p>
+    <section id="page-5" class="page-section">
+        <div style="max-width: 400px;">
+            <p style="line-height: 1.8; margin-bottom: 40px;">
+                "เพราะเรื่องราวของคุณมีความหมาย และอาจช่วยปลอบโยนใจใครได้อีกหลายคน... 
+                หากคุณสะดวกใจ ให้ศาลาข้างชานได้ส่งต่อเรื่องราวนี้ เพื่อให้เพื่อนคนอื่นได้ส่งกอดกลับมาหา 
+                และรอให้คุณกลับมารับอ้อมกอดเหล่านั้น ในวันที่แวะมาศาลาข้างชานอีกครั้ง"
+            </p>
+            <button class="btn" onclick="saveToAirtable(true)" style="border-color: var(--accent-sage); color: var(--accent-sage);">ยินดีแบ่งปันและร่วมกอด</button>
+            <br>
+            <button class="btn" onclick="saveToAirtable(false)" style="border-color: #aaa; color: #888; font-size: 0.9rem; padding: 10px 20px;">ขอฝากไว้ที่ศาลาแห่งนี้พอ</button>
         </div>
+    </section>
 
-    </div>
+    <section id="page-6" class="page-section">
+        <h2 style="margin-bottom: 5px;">Traces of Hearts Left Behind</h2>
+        <p class="subtitle">(รอยใจที่ฝากไว้)</p>
+        <p style="font-size: 0.9rem; max-width: 400px; margin-bottom: 20px;">อ่านเรื่องราวของเพื่อนร่วมทาง เพราะเราต่างเป็นเพื่อนร่วมทางที่มีรสชาติของใจไม่ต่างกัน...</p>
+        
+        <div class="shared-board">
+            <div class="note-card">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">"วันนี้เหนื่อยจัง แบกอะไรไว้เยอะไปหมดเลย"</p>
+                <small style="color: #888;">- สายลมที่พัดผ่าน</small><br>
+                <button class="hug-btn" onclick="this.innerHTML='กอดแล้ว 🤍'; this.style.background='var(--accent-sage)'; this.style.color='#fff';">ส่งกอดให้</button>
+            </div>
+            <div class="note-card">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">"รู้สึกเคว้งคว้าง แต่ก็พยายามยิ้มสู้"</p>
+                <small style="color: #888;">- ดอกไม้ริมทาง</small><br>
+                <button class="hug-btn" onclick="this.innerHTML='กอดแล้ว 🤍'; this.style.background='var(--accent-sage)'; this.style.color='#fff';">ส่งกอดให้</button>
+            </div>
+        </div>
+        <button class="btn" style="margin-top: 40px;" onclick="changePage('page-6', 'page-7')">เดินต่อไป</button>
+    </section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, increment, query, orderBy, limit, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+    <section id="page-7" class="page-section">
+        <h2>ก่อนเดินออกจากศาลา...</h2>
+        <p style="margin-bottom: 40px;">คุณสามารถเลือกเส้นทางต่อไปได้เลยครับ</p>
+        <button class="btn" onclick="window.location.href='https://(ใส่ลิงก์เว็บสั่งขนม)'" style="border-color: var(--accent-sage); color: var(--accent-sage);">ส่งต่อศาลาข้างชาน (สั่งขนม)</button>
+        <br>
+        <button class="btn" onclick="alert('ขอบคุณที่มาพักพิงนะครับ ดูแลหัวใจตัวเองดีๆ นะ'); location.reload();">เดินออกจากศาลาข้างชาน</button>
+    </section>
 
-        // 🔑 อย่าลืมเช็กกุญแจให้ตรงกับของคุณนะ
-        const firebaseConfig = {
-            apiKey: "AIzaSyDeg7GkXgwHDRSh-rdFFZdyNfG5IHcGZIY",
-            authDomain: "khangchan-36952.firebaseapp.com",
-            projectId: "khangchan-36952",
-            storageBucket: "khangchan-36952.firebasestorage.app",
-            messagingSenderId: "774680486656",
-            appId: "1:774680486656:web:f33ffc2389bcb17bf609e5"
+    <script>
+        // ฐานข้อมูลที่แยก Prompts (คำถามหน้า 3 - มี 3 เซ็ต) และ Comforts (คำปลอบหน้า 4 - มี 2 เซ็ต) อย่างชัดเจน
+        const contentDB = {
+            'ขม': {
+                prompts: [
+                    "ภาระเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกเหนื่อยล้าขนาดนี้... เรื่องราวเหล่านั้นต้องการพื้นที่พักพิงที่ ศาลาข้างชาน บ้างไหม เล่าให้เราฟังได้นะ",
+                    "ภาระเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกหนักอึ้งขนาดนี้... ลองวางความเหนื่อยเหล่านั้นทิ้งไว้ที่ ศาลาข้างชาน ดูนะ ที่นี่พร้อมแบ่งเบาเรื่องราวของคุณเสมอ",
+                    "วันนี้คุณ (นามปากกา) ไปเจอเรื่องหนักหนาอะไรมาบ้างไหม... ศาลาข้างชาน หลังนี้มีพื้นที่ว่างเสมอ สำหรับให้คุณได้พักและระบายความเหนื่อยล้าออกมานะ"
+                ],
+                comforts: [
+                    "ขอบคุณที่อนุญาตให้ ศาลาข้างชาน ได้รับรู้ความเหนื่อยของคุณนะ... ที่ผ่านมาคุณเก่งมากแล้วที่แบกรับทุกอย่างมาถึงตรงนี้ วันนี้ลองให้ตัวเองได้พักผ่อนอย่างเต็มที่ดูนะ",
+                    "ศาลาข้างชาน รับรู้ถึงความพยายามของคุณในวันนี้มากที่สุดเลยนะ... ขอบคุณที่อดทนและแบกรับทุกอย่างมาจนถึงที่นี่ พักวางความขมขื่นทิ้งไว้บนชานไม้แห่งนี้ก่อนนะ คุณเหนื่อยมาพอแล้วจริงๆ"
+                ]
+            },
+            'เค็ม': {
+                prompts: [
+                    "ความหม่นหมองเรื่องไหนที่กำลังเดินทางอยู่กับคุณ (นามปากกา) ในตอนนี้... หากอยากให้เรื่องราวเหล่านั้นได้หยุดพักลงที่ ศาลาข้างชาน พิมพ์ทิ้งไว้ตรงนี้ได้เลยนะ",
+                    "ความหม่นหมองเรื่องไหนที่ทำให้ใจของคุณ (นามปากกา) หนักหน่วงขนาดนี้... ให้เรื่องราวเหล่านั้นได้หยุดพักลงที่ ศาลาข้างชาน สักครู่นะ เล่าออกมาได้เท่าที่ใจต้องการเลย",
+                    "มีเรื่องเศร้าเรื่องไหนที่ว้าวุ่นวนเวียนอยู่ในใจของคุณ (นามปากกา) ไหม... ลองให้ ศาลาข้างชาน ช่วยรับรู้เรื่องราวเหล่านั้นดูนะ พิมพ์ออกมาได้เลย พื้นที่ตรงนี้เป็นของคุณเสมอ"
+                ],
+                comforts: [
+                    "ในวันที่ใจเปราะบาง การมีน้ำตาไม่ใช่เรื่องผิดเลย... ขอบคุณที่ไว้ใจฝากความเศร้าไว้ที่นี่นะ ขอให้ ศาลาข้างชาน ได้อยู่เป็นเพื่อนคุณในความเงียบนี้จนกว่าใจจะพร้อมเดินต่อนะ",
+                    "ให้น้ำตาได้ทำหน้าที่ของมันที่ ศาลาข้างชาน แห่งนี้นะ... ความเสียใจไม่ใช่ความอ่อนแอ แต่มันคือการเยียวยาใจที่ซื่อสัตย์ที่สุด ขอบคุณที่กล้าจะเปราะบางให้เราเห็นนะ เราจะอยู่ตรงนี้จนกว่าพายุในใจคุณจะสงบลง"
+                ]
+            },
+            'เผ็ด': {
+                prompts: [
+                    "เรื่องวุ่นวายเรื่องไหนที่ทำให้ใจของคุณ (นามปากกา) ไม่สงบนิ่งเหมือนเคย... ศาลาข้างชาน หลังนี้พร้อมเป็นพื้นที่ให้คุณได้ค่อยๆ เรียบเรียงความกังวลเหล่านั้นออกมานะ",
+                    "เรื่องวุ่นวายเรื่องไหนที่ทำให้ใจของคุณ (นามปากกา) ร้อนรุ่มจนหาความสงบไม่เจอ... ลองระบายควันไฟเหล่านั้นออกมาที่ ศาลาข้างชาน ดูนะ เราพร้อมรับฟังทุกความว้าวุ่นของคุณ",
+                    "พายุความคิดเรื่องไหนที่ทำให้คุณ (นามปากกา) ไม่สามารถหยุดนิ่งได้... ลองใช้เวลาที่ ศาลาข้างชาน ค่อยๆ เรียบเรียงเรื่องวุ่นวายเหล่านั้นออกมาดูนะ เราจะอยู่ฟังคุณเอง"
+                ],
+                comforts: [
+                    "ความกังวลมักจะเสียงดังเสมอเมื่อใจเรารุ่มร้อน... ขอบคุณที่เลือกเรียบเรียงมันออกมาที่ ศาลาข้างชาน นะ ค่อยๆ หายใจนะ คุณไม่ได้กำลังเผชิญเรื่องนี้อยู่ลำพังหรอก",
+                    "ในวันที่ใจร้อนรุ่มและวุ่นวาย ขอให้ความสงบของ ศาลาข้างชาน ช่วยปลอบประโลมคุณนะ... ขอบคุณที่ระบายไฟในใจออกมา การได้พูดออกมาคือจุดเริ่มต้นของความเย็นใจ หายใจเข้าลึกๆ นะ เรายังอยู่ข้างๆ คุณเสมอ"
+                ]
+            },
+            'เปรี้ยว': {
+                prompts: [
+                    "ความอึดอัดใจเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกขัดใจหรือน้อยใจ... หากอยากระบายความรู้สึกเหล่านั้นทิ้งไว้ที่ ศาลาข้างชาน บอกเล่าออกมาได้เต็มที่เลยนะ",
+                    "ความอึดอัดใจเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกขัดใจจนอยากจะเก็บไว้... ลองฝากความรู้สึกเหล่านั้นไว้ที่ ศาลาข้างชาน แทนนะ ที่นี่เป็นพื้นที่ปลอดภัยสำหรับทุกความน้อยใจของคุณ",
+                    "มีเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกไม่เป็นตัวของตัวเองหรือน้อยใจบ้างไหม... บอกเล่าความรู้สึกเหล่านั้นให้ ศาลาข้างชาน ฟังได้นะ ทุกเรื่องราวของคุณมีความหมายกับเราเสมอ"
+                ],
+                comforts: [
+                    "ความรู้สึกน้อยใจบางครั้งก็แหลมคมจนเจ็บไปหมด... ขอบคุณที่ระบายมันออกมานะ ศาลาข้างชาน รับรู้ถึงความอึดอัดที่คุณเจอมา และอยากบอกว่าคุณมีสิทธิ์ที่จะรู้สึกแบบนั้นนะ",
+                    "ศาลาข้างชาน เข้าใจดีว่าความรู้สึกจี๊ดๆ ในใจมันชวนให้อึดอัดแค่ไหน... ขอบคุณที่เลือกบอกเล่าความน้อยใจเหล่านั้นทิ้งไว้ตรงนี้ ขอให้สายลมที่นี่ช่วยพัดพาความขุ่นมัวของคุณให้จางลงไปทีละนิดนะ"
+                ]
+            },
+            'ฝาด': {
+                prompts: [
+                    "ความอึดอัดเรื่องไหนที่ยังคงติดค้างอยู่ในใจของคุณ (นามปากกา)... ลองใช้พื้นที่ที่ ศาลาข้างชาน แห่งนี้ บอกเล่าสิ่งที่พูดไม่ออกเหล่านั้นออกมาดูไหม",
+                    "ความค้างคาใจเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกกลืนไม่เข้าคายไม่ออก... ลองระบายสิ่งที่ติดอยู่ในใจออกมาที่ ศาลาข้างชาน ดูไหม ให้ที่นี่ช่วยรับรู้สิ่งที่คุณบอกใครไม่ได้นะ",
+                    "มีเรื่องที่พูดออกมาไม่ได้ แต่ยังติดค้างอยู่ในใจของคุณ (นามปากกา) บ้างไหม... ลองใช้พื้นที่ที่ ศาลาข้างชาน แห่งนี้ เป็นที่รับฝากความอึดอัดเหล่านั้นดูนะ"
+                ],
+                comforts: [
+                    "บางเรื่องที่พูดไม่ออก การได้พิมพ์ทิ้งไว้ก็คือจุดเริ่มต้นของการปล่อยวางนะ... ขอบคุณที่ฝากความลับที่หนักอึ้งไว้กับ ศาลาข้างชาน ขอให้พื้นที่ตรงนี้ช่วยให้ความอึดอัดในใจคุณค่อยๆ คลายออกนะ",
+                    "เรื่องราวที่กลืนไม่เข้าคายไม่ออกเหล่านั้น ให้มันได้คลี่คลายลงที่ ศาลาข้างชาน นะ... ขอบคุณที่คุณกล้าจะปล่อยวางความค้างคาใจออกมา เรายินดีรับฝากทุกความลับที่หนักอึ้งเพื่อให้คุณได้เดินต่ออย่างเบาสบายขึ้น"
+                ]
+            },
+            'หวาน': {
+                prompts: [
+                    "เรื่องดีๆ เรื่องไหนที่ทำให้คุณ (นามปากกา) ยิ้มได้ในวันนี้... ศาลาข้างชาน อยากขอเป็นพื้นที่ร่วมบันทึกความรู้สึกเหล่านั้นเก็บไว้กับคุณนะ",
+                    "ความสุขเรื่องไหนที่ทำให้วันของคุณ (นามปากกา) สว่างไสวได้ขนาดนี้... ลองบันทึกเรื่องราวดีๆ เหล่านั้นไว้ที่ ศาลาข้างชาน นะ อยากให้ความภูมิใจนี้อยู่เป็นเพื่อนคุณไปนานๆ",
+                    "เรื่องดีๆ เรื่องไหนที่คุณ (นามปากกา) อยากจะจำเก็บไว้ให้ลึกที่สุดในใจ... เล่าให้ ศาลาข้างชาน ฟังหน่อยนะ เราอยากร่วมบันทึกช่วงเวลาที่แสนพิเศษนี้ไปกับคุณ"
+                ],
+                comforts: [
+                    "รอยยิ้มของคุณทำให้ ศาลาข้างชาน สว่างไสวไปด้วยเลย... ขอบคุณที่แบ่งปันความภูมิใจนี้นะ คุณคู่ควรกับความสุขและสิ่งดีๆ ที่เกิดขึ้นในวันนี้ที่สุดเลย",
+                    "ความหวานของคุณทำให้ ศาลาข้างชาน แห่งนี้ดูสว่างขึ้นมาทันทีเลย... ดีใจจริงๆ ที่ได้เห็นคุณยิ้มได้ ขอบคุณที่แบ่งปันช่วงเวลาดีๆ ให้เราได้รับรู้ ขอให้รอยยิ้มนี้เป็นเกราะป้องกันใจของคุณไปตลอดทั้งวันนะ"
+                ]
+            },
+            'กลมกล่อม': {
+                prompts: [
+                    "ในวันที่ใจนิ่งสงบแบบนี้ มีเรื่องราวไหนที่คุณ (นามปากกา) อยากบอกเล่าให้ ศาลาข้างชาน ฟังบ้างไหม... พิมพ์ทิ้งไว้เป็นความทรงจำดีๆ ตรงนี้ได้นะ",
+                    "ความนิ่งสงบเรื่องไหนที่ทำให้คุณ (นามปากกา) รู้สึกเบาสบายขนาดนี้... ลองแบ่งปันความรู้สึกนวลตาไว้ที่ ศาลาข้างชาน นะ เพื่อให้ศาลาแห่งนี้ได้รับรู้ถึงความสงบในใจคุณ",
+                    "ในบรรยากาศที่แสนสงบแบบนี้ มีสิ่งไหนรอบตัวที่ทำให้คุณ (นามปากกา) สบายใจบ้าง... แบ่งปันความรู้สึกนั้นให้ ศาลาข้างชาน รับรู้บ้างนะ พื้นที่ตรงนี้ยินดีไปกับความสุขของคุณเสมอ"
+                ],
+                comforts: [
+                    "ขอบคุณที่แวะมาเติมพลังงานที่อ่อนโยนให้กับ ศาลาข้างชาน นะ... ขอให้ความสงบในใจนี้โอบกอดคุณไว้ให้นานที่สุด และเป็นพลังให้คุณในวันต่อๆ ไปนะ",
+                    "หัวใจที่กลมกล่อมของคุณคือของขวัญที่งดงามที่สุดสำหรับ ศาลาข้างชาน ในวันนี้... ขอบคุณที่แวะมาแบ่งปันความสงบนิ่งนี้ให้นะ ขอให้ความรู้สึกที่พอดีและลงตัวแบบนี้โอบอุ้มวันของคุณให้เป็นวันที่แสนเรียบง่ายและงดงาม"
+                ]
+            }
         };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
 
-        // --- ข้อมูล 7 รสชาติ และ 21 คำถาม ---
-        const emotionData = {
-            'bitter': { label: 'รสขม', desc: 'ผิดหวัง / เหนื่อยล้า', color: '#e6dfd5', border: '#8b7355', quickPrompt: 'อะไรคือก้อนหินที่หนักที่สุดที่คุณแบกไว้... และอยากวางลงที่นี่?' },
-            'salty': { label: 'รสเค็ม', desc: 'เหนื่อย / เหงา', color: '#eef2f5', border: '#5f718a', quickPrompt: 'ในพื้นที่ที่ไม่มีใครตัดสิน... เรื่องไหนที่คุณอยากกระซิบให้เราฟัง?' },
-            'sour': { label: 'รสเปรี้ยว', desc: 'โกรธ / อึดอัด', color: '#fcebe0', border: '#e3963e', quickPrompt: 'มีประโยคไหนที่คุณอยากตะโกนออกมา... แต่ต้องเก็บมันไว้ทั้งวันไหม?' },
-            'astringent': { label: 'รสฝาด', desc: 'ว่างเปล่า', color: '#f0ece1', border: '#a9a9a9', quickPrompt: 'ในวันที่จืดชืด... มีสิ่งเล็กๆ อย่างเดียวไหมที่ทำให้คุณยังยิ้มได้?' },
-            'bland': { label: 'รสจืด', desc: 'สับสน', color: '#f5f5f5', border: '#d3d3d3', quickPrompt: 'ถ้าใจตอนนี้คือสภาพอากาศ... คุณกำลังเจอหมอกหนาหรือพายุอยู่?' },
-            'sweet': { label: 'รสหวาน', desc: 'สุข / ภูมิใจ', color: '#fdf3f4', border: '#fadadd', quickPrompt: 'ขอบคุณที่แวะมาแบ่งปันแสงสว่าง... วันนี้มีเรื่องดีๆ อะไรเกิดขึ้นกับคุณบ้าง?' },
-            'mellow': { label: 'กลมกล่อม', desc: 'ปกติ / สมดุล', color: '#f5eedc', border: '#d4b886', quickPrompt: 'เมื่อทุกรสชาติลงตัว... คุณสัมผัสถึงความอิ่มใจที่ไม่ต้องเติมแต่งเพิ่มได้ไหม?' }
-        };
+        let currentUser = "";
+        let currentEmotion = "";
 
-        const deepQuestions = {
-            'bitter': [
-                "1. ถ้าความขมนี้ส่งเสียงออกมาได้... มันกำลังกระซิบปลอบหรือตะโกนบอกอะไรคุณอยู่ตรงไหนของร่างกาย?",
-                "2. ถ้าลองมองว่าความขมนี้คือ 'เพื่อนที่หวังดี' เขาพยายามจะบอกคุณเรื่องความสำคัญของสิ่งที่คุณทำหายไปหรือเปล่า?",
-                "3. ท่ามกลางรสชาติที่ยากลำบากนี้... มี 'ความใจดีเล็กๆ' อะไรที่คุณอยากมอบให้ตัวเอง เพื่อให้บ้านในใจเริ่มอุ่นขึ้นบ้าง?"
-            ],
-            'salty': [
-                "1. ความเค็มที่ใจตอนนี้... คือ 'เหงื่อ' จากความพยายาม หรือ 'น้ำตา' ของการที่บอกตัวเองว่าพอแล้ว?",
-                "2. รสเค็มนี้กำลังช่วย 'ถนอม' คุณค่าบางอย่างในตัวคุณไม่ให้เลือนหายไปไหม... สิ่งนั้นคืออะไร?",
-                "3. ถ้าใจกว้างเหมือนมหาสมุทร... คุณจะเติม 'ที่ว่าง' ให้ตัวเองพักหายใจยังไง เพื่อให้ความเหนื่อยนี้เจือจางลงบ้าง?"
-            ],
-            'sour': [
-                "1. ความจี๊ดที่กระทบใจตอนนี้... มันกำลังสะกิดบอกความน้อยใจเรื่องไหนที่คุณซ่อนไว้ใต้รอยยิ้มหรือเปล่า?",
-                "2. ถ้าความไม่พอใจนี้คือ 'แรงผลัก'... มันกำลังบอกว่าคุณอยากเห็นความเปลี่ยนแปลงแบบไหนเกิดขึ้น?",
-                "3. คุณจะเปลี่ยนพลังงานที่ว้าวุ่นนี้ ให้กลายเป็นการ 'ลงมือทำเล็กๆ' อะไรที่ทำให้คุณรู้สึกภูมิใจในตัวเองได้บ้าง?"
-            ],
-            'astringent': [
-                "1. ในความแห้งผากที่เหมือนไม่มีอะไร... ถ้าลองเดินเข้าไปสำรวจ คุณมองเห็นตัวเองกำลังนั่งรอใครอยู่ตรงมุมไหนของใจ?",
-                "2. ความว่างนี้อาจเป็น 'พื้นที่ว่าง' ที่รอให้คุณค่อยๆ ปลูกความหมายใหม่ๆ ลงไปไหม? อะไรคือเมล็ดพันธุ์นั้น?",
-                "3. แม้ใจจะดูแห้งแล้ง... มี 'ความเมตตาที่เย็นฉ่ำ' แบบไหนที่คุณพอจะหยิบยื่นให้ตัวเองได้บ้าง?"
-            ],
-            'bland': [
-                "1. ในความนิ่งที่ดูเหมือนไม่มีอะไร... ลองเช็กจังหวะหัวใจดูหน่อยไหม ว่าตอนนี้มันยังบอกว่าคุณปลอดภัยดีหรือเปล่า?",
-                "2. ถ้าความจืดนี้คือการ 'วางสัมภาระ' ลงชั่วคราว... คุณค้นพบความสงบแบบไหนในเวลาที่ไม่ต้องพยายามเก่งเพื่อใคร?",
-                "3. ในความธรรมดาของวันนี้... มีสิ่งเล็กน้อยอะไรที่คุณรู้สึกอยากขอบคุณตัวเองบ้าง?"
-            ],
-            'sweet': [
-                "1. ความหวานที่โชยมาตอนนี้... ลองคลี่รอยยิ้มออกมาทีละนิดดูซิ ว่ามันทำให้แววตาของคุณผ่อนคลายลงได้แค่ไหน?",
-                "2. ความสุขนี้คือ 'ของขวัญ' ที่ผ่านมาให้กำลังใจ... คุณจะซึมซับมันไว้ในใจยังไง โดยไม่ต้องกังวลว่ามันจะจางไป?",
-                "3. คุณจะนำพลังงานดีๆ จากความหวานนี้ ไปแบ่งปันหรือส่งต่อรอยยิ้มให้ใครสักคนในวันนี้ดีไหม?"
-            ],
-            'mellow': [
-                "1. เมื่อทุกรสชาติลงตัว... คุณสัมผัสถึงความอิ่มใจที่ไม่ต้องเติมแต่งเพิ่มได้ไหม?",
-                "2. ความสมดุลที่เจอตอนนี้... สอนอะไรคุณเกี่ยวกับการจัดวางเรื่องที่ทั้งดีและร้ายในชีวิตให้กลายเป็นงานศิลปะ?",
-                "3. คุณจะจดจำเส้นทางที่พาคุณกลับมาสู่ 'ข้างชาน' แห่งความสงบนี้ยังไง... เพื่อกลับมาได้เสมอ?"
-            ]
-        };
-
-        let currentName = localStorage.getItem('kc_penname');
-        let currentMode = ''; 
-        let currentEmotion = '';
-        let validOrderCode = '';
-        let lifetimeVisits = parseInt(localStorage.getItem('kc_lifetime_visits') || '0');
-
-        // ฟังก์ชันพิมพ์ดีด (ใช้เฉพาะตอนลึกซึ้ง)
-        async function typeWriter(elementId, text, speed = 50) {
-            const el = document.getElementById(elementId);
-            el.innerText = '';
-            for (let i = 0; i < text.length; i++) {
-                el.innerText += text.charAt(i);
-                await new Promise(r => setTimeout(r, speed));
+        function typeWriter(elementId, text, i = 0) {
+            if (i < text.length) {
+                document.getElementById(elementId).innerHTML += text.charAt(i);
+                setTimeout(() => typeWriter(elementId, text, i + 1), 50);
             }
         }
 
-        // ฟังก์ชันเปลี่ยนหน้า (แก้บั๊กจอดำแล้ว 100%)
-        window.changeStep = (stepId) => {
-            const currentActive = document.querySelector('.step.active');
-            if (currentActive) {
-                currentActive.classList.remove('active'); // สั่งให้เริ่มเฟดออก
-                setTimeout(() => {
-                    currentActive.style.display = 'none'; // ซ่อนหน้าเก่า
-                    
-                    // เปิดหน้าใหม่
-                    const target = document.getElementById(stepId);
-                    target.style.display = 'block';
-                    setTimeout(() => target.classList.add('active'), 50); // สั่งเฟดอิน
-                    window.scrollTo(0, 0);
-                }, 800); // หน่วงเวลาให้เฟดออกเสร็จก่อน
+        window.onload = function() {
+            const savedPenname = localStorage.getItem('kc_penname');
+            if (!savedPenname) {
+                document.getElementById('newUserSection').style.display = 'block';
+                typeWriter('typewriterNew', 'ยินดีต้อนรับสู่ข้างชาน...\nพื้นที่เล็กๆ ที่รอรับฟังทุกเรื่องราวของคุณ');
             } else {
-                const target = document.getElementById(stepId);
-                target.style.display = 'block';
-                setTimeout(() => target.classList.add('active'), 50);
+                currentUser = savedPenname;
+                document.getElementById('oldUserSection').style.display = 'block';
+                document.getElementById('oldSubtitle').innerHTML = `ศาลายังคงรอ ${currentUser} กลับมาเสมอนะ`;
+                document.getElementById('hugCountDisplay').innerText = localStorage.getItem('kc_hugs') || 5;
+                typeWriter('typewriterOld', `ยินดีที่คุณกลับมาพักที่ศาลาข้างชาน อีกครั้งนะ ${currentUser}`);
             }
         };
 
-        function updatePavilionVisual() {
-            const img = document.getElementById('pavilion-img');
-            const body = document.getElementById('main-body');
-            img.className = 'pavilion-img'; 
-            if (lifetimeVisits <= 2) {
-                img.classList.add('level-1');
-            } else if (lifetimeVisits <= 5) {
-                img.classList.add('level-2');
-                body.classList.add('bg-sunset');
-            } else {
-                img.classList.add('level-3');
-                body.classList.add('bg-sunset');
-            }
-        }
-
-        function maskBadWords(text) {
-            const badWords = ['ควย','เย็ด','หี','แตด','เงี่ยน','อึ๊บ','ปั่มปั๊ม','ดอกทอง','กะหรี่','ส้นตีน','หน้าหี','อีดอก','อีเวร','ไอระยำ','ชาติชั่ว','ถ่อย','เหี้ย','สัส','สัตว์','แม่ง','ฉิบหาย','ชิบหาย','ห่า','เวรเอ๊ย','เฮงซวย','ประสาทแดก','ตอแหล','กู','มึง','กรู','เมิง'];
-            let masked = text;
-            badWords.forEach(word => {
-                const regex = new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                masked = masked.replace(regex, '***');
-            });
-            return masked;
-        }
-
-        // โหลดหน้าแรก
-        window.onload = () => {
-            updatePavilionVisual();
-            renderEmotions();
-
-            if(currentName) {
-                document.getElementById('welcome-text').innerHTML = `ยินดีต้อนรับกลับมานะคุณ <span style="color: var(--primary-green);">${currentName}</span>...`;
-                document.getElementById('intro-text').innerText = "ที่ข้างชานแห่งนี้ ยังคงสงบและรอฟังเรื่องราวของคุณเสมอ...";
-                document.getElementById('penname-input').value = currentName;
-            } else {
-                document.getElementById('welcome-text').innerText = "ยินดีต้อนรับสู่ 'ข้างชาน'";
-                document.getElementById('intro-text').innerText = "ที่ข้างชานแห่งนี้... คุณอยากให้เราเรียกเจ้าของหัวใจดวงนี้ว่าอะไรดี?";
-            }
-        };
-
-        window.saveName = () => {
-            const input = document.getElementById('penname-input').value.trim();
-            if(!input && !currentName) { alert("ตั้งนามปากกาสักนิดนะ 🤍"); return; }
-            if(input) {
-                currentName = input;
-                localStorage.setItem('kc_penname', currentName);
-            }
-            document.getElementById('choice-desc').innerText = `คุณ ${currentName} อยากใช้เวลาที่ศาลาแห่งนี้แบบไหนดี?`;
-            changeStep('step-choice');
-        };
-
-        window.selectMode = (mode) => {
-            currentMode = mode;
-            if(mode === 'quick') {
-                document.getElementById('emo-greeting').innerText = "วางใจลงตรงนี้นะ...";
-                changeStep('step-emotion');
-            } else {
-                changeStep('step-auth');
-            }
-        };
-
-        // ระบบเช็ครหัส Order Code
-        window.verifyOrderCode = async () => {
-            const codeInput = document.getElementById('order-code-input').value.trim().toUpperCase();
-            const errorDiv = document.getElementById('auth-error');
-            
-            if(!/^KC-[A-Z]{2}-\d{4}$/.test(codeInput)) {
-                errorDiv.innerText = "รหัสจะขึ้นต้นด้วย KC- ตามด้วยอักษร 2 ตัว และเลข 4 หลัก (เช่น KC-AX-0123) ลองตรวจทานดูอีกครั้งนะ";
-                return;
-            }
-
-            errorDiv.innerText = "กำลังไขกุญแจศาลา...";
-
-            try {
-                const codeRef = doc(db, "used_codes", codeInput);
-                const codeSnap = await getDoc(codeRef);
-
-                if (codeSnap.exists() && codeSnap.data().count >= 2) {
-                    errorDiv.innerText = "ร่มเงาของรหัสนี้ถูกใช้ครบ 2 ครั้งแล้วน้า... ไว้เจอกันใหม่ในกล่องถัดไปนะ 🤍";
-                } else {
-                    validOrderCode = codeInput; 
-                    errorDiv.innerText = "";
-                    document.getElementById('emo-greeting').innerText = "พร้อมเดินทางกลับบ้านในใจกันนะ...";
-                    changeStep('step-emotion');
-                }
-            } catch (e) {
-                errorDiv.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อ...";
-            }
-        };
-
-        function renderEmotions() {
-            const list = document.getElementById('emotion-list-container');
-            for (const [key, data] of Object.entries(emotionData)) {
-                const btn = document.createElement('button');
-                btn.className = 'emotion-btn';
-                btn.innerHTML = `<span class="emo-title">${data.label}</span> <span class="emo-desc">. . . ${data.desc}</span>`;
-                btn.onclick = () => selectEmotion(key);
-                list.appendChild(btn);
-            }
-        }
-
-        window.selectEmotion = async (key) => {
-            currentEmotion = key;
-            const data = emotionData[key];
-            document.documentElement.style.setProperty('--bg-current', data.color);
-            document.getElementById('user-message').value = '';
-
-            changeStep('step-write');
-
-            if (currentMode === 'quick') {
-                document.getElementById('deep-questions-area').style.display = 'none';
-                document.getElementById('quick-prompt-area').style.display = 'block';
-                document.getElementById('quick-prompt').innerText = data.quickPrompt;
-            } else {
-                document.getElementById('quick-prompt-area').style.display = 'none';
-                document.getElementById('deep-questions-area').style.display = 'block';
-                const qs = deepQuestions[key];
-                
-                // ค่อยๆ พิมพ์คำถาม 3 ข้อทีละบรรทัด
-                document.getElementById('q1').innerText = '';
-                document.getElementById('q2').innerText = '';
-                document.getElementById('q3').innerText = '';
-                
-                // รอหน้าเฟดเข้ามาให้เสร็จก่อน ค่อยเริ่มพิมพ์ (800ms)
-                setTimeout(async () => {
-                    await typeWriter('q1', qs[0], 40);
-                    await new Promise(r => setTimeout(r, 1000));
-                    await typeWriter('q2', qs[1], 40);
-                    await new Promise(r => setTimeout(r, 1000));
-                    await typeWriter('q3', qs[2], 40);
-                }, 800);
-            }
-        };
-
-        window.submitMessage = async (isPublicConsent) => {
-            const msg = document.getElementById('user-message').value.trim();
-            if(!msg) return; 
-
-            changeStep('step-transition');
-            document.documentElement.style.setProperty('--bg-current', 'var(--bg-default)'); 
-
-            try {
-                await addDoc(collection(db, "messages"), {
-                    penname: currentName,
-                    emotion: currentEmotion,
-                    mode: currentMode,
-                    text: msg,
-                    hugs: 0,
-                    reports: 0,
-                    isPublic: isPublicConsent,
-                    orderCode: validOrderCode || 'None',
-                    createdAt: serverTimestamp()
-                });
-
-                if (currentMode === 'deep' && validOrderCode) {
-                    const codeRef = doc(db, "used_codes", validOrderCode);
-                    const codeSnap = await getDoc(codeRef);
-                    if(codeSnap.exists()){
-                        await updateDoc(codeRef, { count: increment(1) });
-                    } else {
-                        await setDoc(codeRef, { count: 1 });
-                    }
-                }
-
-                lifetimeVisits += 1;
-                localStorage.setItem('kc_lifetime_visits', lifetimeVisits);
-
-            } catch (e) { console.error(e); }
-
+        function changePage(hidePageId, showPageId) {
+            window.scrollTo(0, 0); 
+            document.getElementById(hidePageId).classList.remove('active');
             setTimeout(() => {
-                fetchAndRenderBoard(); 
-                changeStep('step-board');
-            }, 3000);
-        };
+                document.getElementById(showPageId).classList.add('active');
+            }, 1500);
+        }
 
-        async function fetchAndRenderBoard() {
-            const board = document.getElementById('shared-board');
-            board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300;">กำลังจัดเตรียมร่มเงา...</p>'; 
-            
-            try {
-                const q = query(collection(db, "messages"), where("isPublic", "==", true), orderBy("hugs", "asc"), limit(5));
-                const querySnapshot = await getDocs(q);
-                
-                let messagesList = [];
-                querySnapshot.forEach((docSnap) => {
-                    let data = docSnap.data();
-                    if(data.reports < 3 && data.text) messagesList.push({ id: docSnap.id, ...data });
-                });
-
-                board.innerHTML = ''; 
-
-                if(messagesList.length === 0) {
-                    board.innerHTML = '<p style="text-align:center; color: var(--text-light); font-weight: 300; padding: 20px;">ตอนนี้ศาลายังว่างเปล่า...<br>ข้อความของคุณจะเป็นแสงสว่างแรกนะ 🤍</p>';
-                    return;
-                }
-
-                messagesList.forEach(item => {
-                    const emoInfo = emotionData[item.emotion] || emotionData['mellow'];
-                    const noteDiv = document.createElement('div');
-                    noteDiv.className = 'sticky-note';
-                    noteDiv.style.borderLeftColor = emoInfo.border; 
-
-                    const reportBtn = document.createElement('button');
-                    reportBtn.className = 'report-btn';
-                    reportBtn.innerText = '🚩';
-                    reportBtn.onclick = async () => {
-                        noteDiv.style.display = 'none'; 
-                        await updateDoc(doc(db, "messages", item.id), { reports: increment(1) });
-                    };
-
-                    const textDiv = document.createElement('div');
-                    textDiv.className = 'note-text';
-                    textDiv.innerText = `"${maskBadWords(item.text)}"`; 
-
-                    const footerDiv = document.createElement('div');
-                    footerDiv.className = 'note-footer';
-                    const labelSpan = document.createElement('span');
-                    labelSpan.style.fontSize = '13px';
-                    labelSpan.style.color = emoInfo.border;
-                    labelSpan.innerText = emoInfo.label;
-
-                    const hugBtn = document.createElement('button');
-                    hugBtn.className = 'hug-btn';
-                    hugBtn.innerText = '🫂';
-                    hugBtn.onclick = async () => {
-                        if (!hugBtn.classList.contains('hugged')) {
-                            hugBtn.classList.add('hugged');
-                            hugBtn.innerText = '🫂🤍';
-                            await updateDoc(doc(db, "messages", item.id), { hugs: increment(1) });
-                        }
-                    };
-
-                    noteDiv.appendChild(reportBtn);
-                    noteDiv.appendChild(textDiv);
-                    footerDiv.appendChild(labelSpan);
-                    footerDiv.appendChild(hugBtn);
-                    noteDiv.appendChild(footerDiv);
-                    board.appendChild(noteDiv);
-                });
-
-            } catch (error) {
-                console.error("Error:", error);
+        function enterSanctuary(type) {
+            if (type === 'new') {
+                const name = document.getElementById('newPennameInput').value.trim();
+                if (name === "") { alert("แวะตั้งนามปากกาก่อนนะครับ"); return; }
+                currentUser = name;
+                localStorage.setItem('kc_penname', name);
+                localStorage.setItem('kc_hugs', 0); 
             }
+            changePage('page-1', 'page-2');
+        }
+
+        function showChangeNameUI() {
+            document.getElementById('oldUserGreeting').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('oldUserGreeting').style.display = 'none';
+                document.getElementById('changeNameSection').style.display = 'block';
+                document.getElementById('changeNameSection').style.animation = "fadeIn 1s forwards";
+            }, 500);
+        }
+
+        function saveNewName() {
+            const newName = document.getElementById('changePennameInput').value.trim();
+            if (newName === "") { alert("พิมพ์นามปากกาใหม่ก่อนนะครับ"); return; }
+            currentUser = newName;
+            localStorage.setItem('kc_penname', newName);
+            changePage('page-1', 'page-2');
+        }
+
+        // ==========================================
+        // จุดที่ระบบสุ่มคำถามหน้า 3 (จาก 3 เซ็ต)
+        // ==========================================
+        function selectEmotion(emotion) {
+            currentEmotion = emotion;
+            
+            // สุ่มตัวเลข 0, 1 หรือ 2
+            let randomPromptIndex = Math.floor(Math.random() * contentDB[emotion].prompts.length);
+            let rawPrompt = contentDB[emotion].prompts[randomPromptIndex];
+            
+            // แทนที่คำว่า (นามปากกา) ด้วยชื่อลูกค้า
+            let personalizedPrompt = rawPrompt.replace(/\(นามปากกา\)/g, currentUser);
+
+            document.getElementById('promptText').innerText = personalizedPrompt;
+            changePage('page-2', 'page-3');
+        }
+
+        // ==========================================
+        // จุดที่ระบบสุ่มคำให้กำลังใจหน้า 4 (จาก 2 เซ็ต)
+        // ==========================================
+        function submitMessage() {
+            const msg = document.getElementById('userMessage').value.trim();
+            if (msg === "") { alert("พิมพ์ระบายความรู้สึกก่อนฝากไว้นะครับ"); return; }
+            
+            document.getElementById('userMessage').classList.add('fade-out-text');
+
+            // สุ่มตัวเลข 0 หรือ 1
+            let randomComfortIndex = Math.floor(Math.random() * contentDB[currentEmotion].comforts.length);
+            let rawComfort = contentDB[currentEmotion].comforts[randomComfortIndex];
+            
+            // แทนที่คำว่า (นามปากกา) ด้วยชื่อลูกค้า
+            let personalizedComfort = rawComfort.replace(/\(นามปากกา\)/g, currentUser);
+            
+            document.getElementById('comfortText').innerText = personalizedComfort;
+            
+            setTimeout(() => {
+                changePage('page-3', 'page-4');
+            }, 1500);
+        }
+
+        function saveToAirtable(canShare) {
+            if(canShare) { alert("ขอบคุณที่แบ่งปันเรื่องราวให้ศาลาแห่งนี้นะครับ"); }
+            changePage('page-5', 'page-6');
         }
     </script>
 </body>
